@@ -53,7 +53,7 @@ pip install -r requirements.txt
 
 
 ## Data 
-Download the data from the link below and put it the data/multiomics_meth/ before training:
+Download the data from the link below and put it in the data/multiomics_meth/ before training:
 
 -) https://cbdm-01.zdv.uni-mainz.de/~mschaefer/hippie/download.php
 
