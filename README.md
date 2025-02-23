@@ -1,6 +1,12 @@
-# Adaptive Chebyshev Graph Neural Network for Cancer Gene Prediction with Multi-Omics Integration
+## Adaptive Chebyshev Graph Neural Network for Cancer Gene Prediction with Multi-Omics Integration
 
-This repository contains the code for our paper, "Adaptive Chebyshev Graph Neural Network for Cancer Gene Prediction with Multi-Omics Integration," accepted for presentation at the IEEE International Conference on Bioinformatics & Biomedicine (BIBM) 2024, held from December 3-6, 2024, in Lisbon, Portugal.
+This repository contains the code for our project,  
+**"Adaptive Chebyshev Graph Neural Network for Cancer Gene Prediction with Multi-Omics Integration,"**  
+submitted to the **13th International Conference on Intelligent Biology and Medicine (ICIBM 2025)**,  
+which will take place **August 10-12, 2025, in Columbus, OH, USA**.  
+
+You can learn more about the conference here:  
+[ICIBM 2025](https://icibm2025.iaibm.org/)
 
 ![Alt text](images/__overview_framework.png)
 
