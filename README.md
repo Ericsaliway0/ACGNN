@@ -22,31 +22,7 @@ The dataset is obtained from the following sources:
 These databases provide curated and integrated protein-protein interaction (PPI) and pathway data for bioinformatics research.
 
 
-## Setup
+## Setup and Get Started
 
-pip install -r requirements.txt
-
--) conda activate gnn 
-
--) conda install pytorch::pytorch torchvision torchaudio -c pytorch
-
--) pip install pandas
-
--) pip install py2neo pandas matplotlib scikit-learn
-
--) pip install tqdm
-
--) conda install -c dglteam dgl
-
--) pip install seaborn
-
-
-## Data 
-Download the data from the link below and put it in the data/multiomics_meth/ before training:
-
--) https://cbdm-01.zdv.uni-mainz.de/~mschaefer/hippie/download.php
-
-## Get start
-python main.py --model_type ACGNN --net_type CPDB --score_threshold 0.99 --learning_rate 0.001 --num_epochs 200
-   
+To set up the environment, first, install the required dependencies by running `pip install -r requirements.txt`. Then, activate your Conda environment with `conda activate gnn` and install PyTorch using `conda install pytorch torchvision torchaudio -c pytorch`. Next, install the necessary Python packages with `pip install pandas py2neo pandas matplotlib scikit-learn tqdm seaborn`. Additionally, install DGL using `conda install -c dglteam dgl`. Before training, download the data from [HIPPIE Database](https://cbdm-01.zdv.uni-mainz.de/~mschaefer/hippie/download.php) and place it in the `data/multiomics_meth/` directory. Finally, to train the model, run the command: `python main.py --model_type ACGNN --net_type CPDB --score_threshold 0.99 --learning_rate 0.001 --num_epochs 200`.
 
