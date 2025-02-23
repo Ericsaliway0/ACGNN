@@ -1,0 +1,2 @@
+Model Type,Total Time,Average Time per Epoch,Average CPU Usage (MB),Average GPU Usage (MB)
+ACGNN,0.7138s,0.3569s,45.70,0.00

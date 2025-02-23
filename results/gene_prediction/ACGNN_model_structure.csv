@@ -1,0 +1,2 @@
+Method,Number of Layers,Input Layer Nodes,Hidden Layer Nodes,Attention Layer Nodes,Output Layer Nodes,Total Parameters,Residual Connection
+ACGNN,5,2048,1024,N/A,1,7346177,No
