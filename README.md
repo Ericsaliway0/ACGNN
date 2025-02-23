@@ -24,5 +24,26 @@ These databases provide curated and integrated protein-protein interaction (PPI)
 
 ## Setup and Get Started
 
-To set up the environment, first, install the required dependencies by running `pip install -r requirements.txt`. Then, activate your Conda environment with `conda activate gnn` and install PyTorch using `conda install pytorch torchvision torchaudio -c pytorch`. Next, install the necessary Python packages with `pip install pandas py2neo pandas matplotlib scikit-learn tqdm seaborn`. Additionally, install DGL using `conda install -c dglteam dgl`. Before training, download the data from [HIPPIE Database](https://cbdm-01.zdv.uni-mainz.de/~mschaefer/hippie/download.php) and place it in the `data/multiomics_meth/` directory. Finally, to train the model, run the command: `python main.py --model_type ACGNN --net_type CPDB --score_threshold 0.99 --learning_rate 0.001 --num_epochs 200`.
+1. Install the required dependencies:
+   - `pip install -r requirements.txt`
+
+2. Activate your Conda environment:
+   - `conda activate gnn`
+
+3. Install PyTorch:
+   - `conda install pytorch torchvision torchaudio -c pytorch`
+
+4. Install the necessary Python packages:
+   - `pip install pandas`
+   - `pip install py2neo pandas matplotlib scikit-learn`
+   - `pip install tqdm`
+   - `pip install seaborn`
+
+5. Install DGL:
+   - `conda install -c dglteam dgl`
+
+6. Download the data from the [HIPPIE Database](https://cbdm-01.zdv.uni-mainz.de/~mschaefer/hippie/download.php) and place it in the `data/multiomics_meth/` directory.
+
+7. To train the model, run the following command:
+   - `python main.py --model_type ACGNN --net_type CPDB --score_threshold 0.99 --learning_rate 0.001 --num_epochs 200`
 
