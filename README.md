@@ -1,16 +1,13 @@
-# PERGAT: Pretrained Embeddings of Graph Neural Networks for miRNA-Cancer Association Predictions
+# Adaptive Chebyshev Graph Neural Network for Cancer Gene Prediction with Multi-Omics Integration
 
 This repository contains the code for our paper, "Adaptive Chebyshev Graph Neural Network for Cancer Gene Prediction with Multi-Omics Integration," accepted for presentation at the IEEE International Conference on Bioinformatics & Biomedicine (BIBM) 2024, held from December 3-6, 2024, in Lisbon, Portugal.
 
 
 ## Data resources
-The different dataset and KG used in this project are located in data directory. These files include:
+Download the data from the link below and put it the data/multiomics_meth/ before training:
 
--) dbDEMC: A Database of Differentially Expressed miRNAs in Human Cancers (https://www.biosino.org/dbDEMC/index)
+-) https://drive.google.com/file/d/1l7mbTn2Nxsbc7LLLJzsT8y02scD23aWo/view?usp=sharing
 
--) HMDD: the Human microRNA Disease Database (http://www.cuilab.cn/hmdd)
-
--) miR2Disease: (http://www.mir2disease.org/)
 
 ## Setup
 
