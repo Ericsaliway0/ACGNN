@@ -25,7 +25,7 @@ for omics in omics_types:
     df_filtered.columns = [col.replace(f"{omics}:", "").strip() for col in selected_columns]
 
     # Define output file name
-    output_file = f"data/multiomics_{omics.lower()}.csv"
+    output_file = f"data/multiomics/multiomics_{omics.lower()}.csv"
 
     # Save as a tab-separated file
     df_filtered.to_csv(output_file, sep="\t", index_label="Gene")
