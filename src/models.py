@@ -1,24 +1,8 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
 from torch_geometric.nn import GCNConv
 from torch.nn import Linear
-from dgl.nn.pytorch import GINConv, ChebConv, GraphConv, SAGEConv, GATConv
-from torch_geometric.utils import dropout_edge, negative_sampling, remove_self_loops, add_self_loops
-## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python gat/__pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --net_type CPDB --score_threshold 0.99 --hidden_feats 1024 --learning_rate 0.001 --num_epochs 105
-## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python gat/__pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --net_type HIPPIE --score_threshold 0.99 --in_feats 2048 --hidden_feats 256 --learning_rate 0.001 --num_epochs 105
-
-## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python gat/__pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --score_threshold 0.99 --learning_rate 0.001 --num_epochs 204
-## p_value in average predicted score
-## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python gat/__pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --net_type STRING --score_threshold 0.99 --learning_rate 0.001 --num_epochs 505
-## python gat/_gene_label_prediction_tsne_pertag.py --model_type Chebnet --net_type pathnet --score_threshold 0.4 --learning_rate 0.001 --num_epochs 65 
-## (kg39) ericsali@erics-MBP-4 gnn_pathways % python gat/_gene_label_prediction_tsne_sage.py --model_type EMOGI --net_type ppnet --score_threshold 0.5 --learning_rate 0.001 --num_epochs 100 
-## (kg39) ericsali@erics-MBP-4 gnn_pathways % python gat/_gene_label_prediction_tsne_pertag.py --model_type ATTAG --net_type ppnet --score_threshold 0.9 --learning_rate 0.001 --num_epochs 201
-
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
 from dgl.nn import SAGEConv, GATConv, GraphConv, GINConv, ChebConv
 from torch_geometric.utils import dropout_edge, negative_sampling, remove_self_loops, add_self_loops
 

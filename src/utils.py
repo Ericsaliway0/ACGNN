@@ -1,12 +1,12 @@
-## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python gat/__pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --net_type CPDB --score_threshold 0.99 --hidden_feats 1024 --learning_rate 0.001 --num_epochs 105
-## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python gat/__pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --net_type HIPPIE --score_threshold 0.99 --in_feats 2048 --hidden_feats 256 --learning_rate 0.001 --num_epochs 105
+## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python __pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --net_type CPDB --score_threshold 0.99 --hidden_feats 1024 --learning_rate 0.001 --num_epochs 105
+## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python __pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --net_type HIPPIE --score_threshold 0.99 --in_feats 2048 --hidden_feats 256 --learning_rate 0.001 --num_epochs 105
 
-## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python gat/__pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --score_threshold 0.99 --learning_rate 0.001 --num_epochs 204
+## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python __pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --score_threshold 0.99 --learning_rate 0.001 --num_epochs 204
 ## p_value in average predicted score
-## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python gat/__pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --net_type STRING --score_threshold 0.99 --learning_rate 0.001 --num_epochs 505
-## python gat/_gene_label_prediction_tsne_pertag.py --model_type Chebnet --net_type pathnet --score_threshold 0.4 --learning_rate 0.001 --num_epochs 65 
-## (kg39) ericsali@erics-MBP-4 gnn_pathways % python gat/_gene_label_prediction_tsne_sage.py --model_type EMOGI --net_type ppnet --score_threshold 0.5 --learning_rate 0.001 --num_epochs 100 
-## (kg39) ericsali@erics-MBP-4 gnn_pathways % python gat/_gene_label_prediction_tsne_pertag.py --model_type ATTAG --net_type ppnet --score_threshold 0.9 --learning_rate 0.001 --num_epochs 201
+## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python __pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --net_type STRING --score_threshold 0.99 --learning_rate 0.001 --num_epochs 505
+## python _gene_label_prediction_tsne_pertag.py --model_type Chebnet --net_type pathnet --score_threshold 0.4 --learning_rate 0.001 --num_epochs 65 
+## (kg39) ericsali@erics-MBP-4 gnn_pathways % python _gene_label_prediction_tsne_sage.py --model_type EMOGI --net_type ppnet --score_threshold 0.5 --learning_rate 0.001 --num_epochs 100 
+## (kg39) ericsali@erics-MBP-4 gnn_pathways % python _gene_label_prediction_tsne_pertag.py --model_type ATTAG --net_type ppnet --score_threshold 0.9 --learning_rate 0.001 --num_epochs 201
 
 import json
 import torch
@@ -21,9 +21,52 @@ from scipy.stats import ttest_ind
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import ttest_ind
-
 from torch_geometric.nn import GCNConv
 from .models import ACGNN, HGDC, EMOGI, MTGCN, GCN, GAT, GraphSAGE, GIN, Chebnet, FocalLoss
+import pandas as pd
+import torch.nn as nn
+
+def save_model_details(model, args, model_csv_path, in_feats, hidden_feats, out_feats):
+    """
+    Extracts model details and saves them to a CSV file.
+
+    Parameters:
+    - model: The neural network model.
+    - args: Arguments containing model configuration.
+    - model_csv_path: File path to save the model details.
+    - in_feats: Number of input features.
+    - hidden_feats: Number of hidden layer features.
+    - out_feats: Number of output features.
+    """
+    # Count layers and parameters
+    num_layers = sum(1 for _ in model.children())  # Count layers
+    total_params = sum(p.numel() for p in model.parameters())  # Count parameters
+
+    # Detect attention layers
+    attention_layer_nodes = None
+    for layer in model.children():
+        if hasattr(layer, 'heads'):  # Assuming attention layers have 'heads' attribute
+            attention_layer_nodes = layer.heads
+
+    # Detect residual connections
+    has_residual = any(isinstance(layer, nn.Identity) for layer in model.modules())
+
+    # Prepare data for CSV
+    model_data = {
+        "Method": [args.model_type],
+        "Number of Layers": [num_layers],
+        "Input Layer Nodes": [in_feats],
+        "Hidden Layer Nodes": [hidden_feats],
+        "Attention Layer Nodes": [attention_layer_nodes if attention_layer_nodes else "N/A"],
+        "Output Layer Nodes": [out_feats],
+        "Total Parameters": [total_params],
+        "Residual Connection": ["Yes" if has_residual else "No"]
+    }
+
+    # Convert to DataFrame and save as CSV
+    df = pd.DataFrame(model_data)
+    df.to_csv(model_csv_path, index=False)
+    print(f"Model architecture saved to {model_csv_path}")
 
 def choose_model(model_type, in_feats, hidden_feats, out_feats):
     if model_type == 'GraphSAGE':
@@ -50,7 +93,7 @@ def choose_model(model_type, in_feats, hidden_feats, out_feats):
 def save_and_plot_results_no_error_bar_pass(predicted_above, predicted_below, degrees_above, degrees_below, avg_above, avg_below, args):
 
     # Save predictions and degrees
-    output_dir = 'gat/results/gene_prediction/'
+    output_dir = 'results/gene_prediction/'
     os.makedirs(output_dir, exist_ok=True)
 
     def save_csv(data, filename, header):
@@ -151,7 +194,7 @@ def load_oncokb_genes(filepath):
 def plot_and_analyze_ori(args):
     # File path for the saved predictions
     csv_file_path = os.path.join(
-        'gat/results/gene_prediction/',
+        'results/gene_prediction/',
         f'{args.model_type}_{args.net_type}_predicted_scores_threshold{args.score_threshold}_epo{args.num_epochs}.csv'
     )
 
@@ -201,7 +244,7 @@ def plot_and_analyze_ori(args):
 
     # Save average scores and p-values to another CSV
     avg_csv_path = os.path.join(
-        'gat/results/gene_prediction/',
+        'results/gene_prediction/',
         f'{args.model_type}_{args.net_type}_group_avg_scores_pvalues_epo{args.num_epochs}_2048.csv'
     )
     os.makedirs(os.path.dirname(avg_csv_path), exist_ok=True)
@@ -229,7 +272,7 @@ def plot_and_analyze_ori(args):
     plt.tight_layout()
 
     bar_plot_path = os.path.join(
-        'gat/results/gene_prediction/',
+        'results/gene_prediction/',
         f'{args.model_type}_{args.net_type}_group_avg_scores_barplot_epo{args.num_epochs}_2048.png'
     )
     plt.savefig(bar_plot_path)
@@ -253,7 +296,7 @@ def plot_and_analyze_ori(args):
         p_values[(g1, g2)] = ttest_ind(scores1, scores2, equal_var=False).pvalue if len(scores1) > 1 and len(scores2) > 1 else np.nan
 
     # Save averages and p-values
-    avg_csv_path = os.path.join('gat/results/gene_prediction/',
+    avg_csv_path = os.path.join('results/gene_prediction/',
                                 f'{args.model_type}_avg_scores_pvalues.csv')
     with open(avg_csv_path, mode='w', newline='') as file:
         writer = csv.writer(file)
@@ -278,7 +321,7 @@ def plot_and_analyze_ori(args):
     plt.grid(axis='y', linestyle='--', alpha=0.6)
     plt.tight_layout()
 
-    bar_plot_path = os.path.join('gat/results/gene_prediction/',
+    bar_plot_path = os.path.join('results/gene_prediction/',
                                  f'{args.model_type}_group_avg_scores.png')
     plt.savefig(bar_plot_path)
     print(f"Bar plot saved to {bar_plot_path}")
@@ -287,7 +330,7 @@ def plot_and_analyze_ori(args):
 def plot_and_analyze(args):
     # File path for the saved predictions
     csv_file_path = os.path.join(
-        'gat/results/gene_prediction/',
+        'results/gene_prediction/',
         f'{args.model_type}_{args.net_type}_predicted_scores_threshold{args.score_threshold}_epo{args.num_epochs}.csv'
     )
 
@@ -331,7 +374,7 @@ def plot_and_analyze(args):
 
     # Save average scores and p-values to another CSV
     avg_csv_path = os.path.join(
-        'gat/results/gene_prediction/',
+        'results/gene_prediction/',
         f'{args.model_type}_{args.net_type}_group_avg_scores_pvalues_threshold{args.score_threshold}_epo{args.num_epochs}_2048.csv'
     )
     os.makedirs(os.path.dirname(avg_csv_path), exist_ok=True)
@@ -361,7 +404,7 @@ def plot_and_analyze(args):
 
     # Save the bar plot
     bar_plot_path = os.path.join(
-        'gat/results/gene_prediction/',
+        'results/gene_prediction/',
         f'{args.model_type}_{args.net_type}_group_avg_scores_barplot_threshold{args.score_threshold}_epo{args.num_epochs}_2048.png'
     )
     plt.savefig(bar_plot_path)
@@ -371,7 +414,7 @@ def plot_and_analyze(args):
 def save_and_plot_results(predicted_above, predicted_below, degrees_above, degrees_below, avg_above, avg_below, avg_error_above, avg_error_below, args):
 
     # Save predictions and degrees
-    output_dir = 'gat/results/gene_prediction/'
+    output_dir = 'results/gene_prediction/'
     os.makedirs(output_dir, exist_ok=True)
 
     def save_csv(data, filename, header):

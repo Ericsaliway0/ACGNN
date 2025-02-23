@@ -1,12 +1,3 @@
-## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python gat/__pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --net_type CPDB --score_threshold 0.99 --hidden_feats 1024 --learning_rate 0.001 --num_epochs 105
-## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python gat/__pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --net_type HIPPIE --score_threshold 0.99 --in_feats 2048 --hidden_feats 256 --learning_rate 0.001 --num_epochs 105
-
-## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python gat/__pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --score_threshold 0.99 --learning_rate 0.001 --num_epochs 204
-## p_value in average predicted score
-## (kg39) ericsali@erics-MacBook-Pro-4 gnn_pathways % python gat/__pertag_driver_gene_prediction_chebnet_gpu_usage_pass_distr_2048.py --model_type ACGNN --net_type STRING --score_threshold 0.99 --learning_rate 0.001 --num_epochs 505
-## python gat/_gene_label_prediction_tsne_pertag.py --model_type Chebnet --net_type pathnet --score_threshold 0.4 --learning_rate 0.001 --num_epochs 65 
-## (kg39) ericsali@erics-MBP-4 gnn_pathways % python gat/_gene_label_prediction_tsne_sage.py --model_type EMOGI --net_type ppnet --score_threshold 0.5 --learning_rate 0.001 --num_epochs 100 
-## (kg39) ericsali@erics-MBP-4 gnn_pathways % python gat/_gene_label_prediction_tsne_pertag.py --model_type ATTAG --net_type ppnet --score_threshold 0.9 --learning_rate 0.001 --num_epochs 201
 
 import dgl
 import torch
@@ -35,7 +26,7 @@ def train(args):
     epoch_times = []
     cpu_usages = []
     gpu_usages = []
-    data_path = os.path.join('gat/data/multiomics_meth/', f'{args.net_type}_omics_ppi_embeddings_2048.json')
+    data_path = os.path.join('data/multiomics_meth/', f'{args.net_type}_omics_ppi_embeddings_2048.json')
     nodes, edges, embeddings, labels = load_graph_data(data_path)
 
     graph = dgl.graph(edges)
@@ -52,7 +43,7 @@ def train(args):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     # Define output directory
-    output_dir = 'gat/results/gene_prediction/'
+    output_dir = 'results/gene_prediction/'
     os.makedirs(output_dir, exist_ok=True)
 
     # File path for saving model architecture
@@ -139,7 +130,7 @@ def train(args):
     ranking = sorted(non_labeled_scores, key=lambda x: x[1], reverse=True)
 
 
-    process_predictions(ranking, args, "gat/data/796_drivers.txt", "gat/data/oncokb_1172.txt", "gat/data/ongene_803.txt", "gat/data/ncg_8886.txt", "gat/data/intogen_23444.txt", node_names, non_labeled_nodes)
+    process_predictions(ranking, args, "data/796_drivers.txt", "data/oncokb_1172.txt", "data/ongene_803.txt", "data/ncg_8886.txt", "data/intogen_23444.txt", node_names, non_labeled_nodes)
 
     # Load driver and reference gene sets
 
@@ -171,11 +162,11 @@ def train(args):
 
     # Save predictions (above and below threshold) to CSV
     output_file_above = os.path.join(
-        'gat/results/gene_prediction/',
+        'results/gene_prediction/',
         f'{args.model_type}_{args.net_type}_predicted_driver_genes_above_epo{args.num_epochs}_2048.csv'
     )
     output_file_below = os.path.join(
-        'gat/results/gene_prediction/',
+        'results/gene_prediction/',
         f'{args.model_type}_{args.net_type}_predicted_driver_genes_below_epo{args.num_epochs}_2048.csv'
     )
 
@@ -213,7 +204,7 @@ def train(args):
 
     # Save degrees of predicted driver genes connecting to ground truth driver genes (above threshold)
     degree_output_file_above = os.path.join(
-        'gat/results/gene_prediction/',
+        'results/gene_prediction/',
         f'{args.model_type}_{args.net_type}_predicted_driver_gene_degrees_above_epo{args.num_epochs}_2048.csv'
     )
     with open(degree_output_file_above, 'w', newline='') as csvfile:
@@ -244,8 +235,8 @@ def train(args):
     sorted_degree_counts_above_value = [value for _, value in sorted_degree_counts_above if value <= 20]
     sorted_degree_counts_below_value = [value for _, value in sorted_degree_counts_below if value <= 20]
     
-    output_above_file = os.path.join('gat/results/gene_prediction/', f'{args.model_type}_{args.net_type}_output_above_file_epo{args.num_epochs}_2048.csv')
-    output_below_file = os.path.join('gat/results/gene_prediction/', f'{args.model_type}_{args.net_type}_output_below_file_epo{args.num_epochs}_2048.csv')
+    output_above_file = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_output_above_file_epo{args.num_epochs}_2048.csv')
+    output_below_file = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_output_below_file_epo{args.num_epochs}_2048.csv')
 
     calculate_and_save_prediction_stats(non_labeled_nodes, labels, node_names, scores, args)
 
@@ -352,8 +343,8 @@ def process_predictions(ranking, args, drivers_file_path, oncokb_file_path, onge
             predicted_genes.append((node, score, ", ".join(sources) if sources else ""))
 
     # Save predictions to a CSV file
-    save_predictions_to_csv(predicted_genes, 'gat/results/gene_prediction/', args.model_type, args.net_type, args.num_epochs)
-    save_confirmed_predictions_to_csv(confirmed_predictions, 'gat/results/gene_prediction/', args.model_type, args.net_type, args.num_epochs)
+    save_predictions_to_csv(predicted_genes, 'results/gene_prediction/', args.model_type, args.net_type, args.num_epochs)
+    save_confirmed_predictions_to_csv(confirmed_predictions, 'results/gene_prediction/', args.model_type, args.net_type, args.num_epochs)
 
     # Load known cancer driver genes
     with open(drivers_file_path, 'r') as f:
@@ -363,7 +354,7 @@ def process_predictions(ranking, args, drivers_file_path, oncokb_file_path, onge
     predicted_driver_genes = [node_names[i] for i in non_labeled_nodes if node_names[i] in known_drivers]
 
     # Save the predicted known cancer driver genes to a CSV file
-    save_predicted_known_drivers(predicted_driver_genes, 'gat/results/gene_prediction/', args.model_type, args.net_type, args.num_epochs)
+    save_predicted_known_drivers(predicted_driver_genes, 'results/gene_prediction/', args.model_type, args.net_type, args.num_epochs)
 
 def save_overall_metrics(total_time, average_time_per_epoch, average_cpu_usage, average_gpu_usage, args, output_dir):
     """
@@ -412,7 +403,7 @@ def calculate_and_save_prediction_stats(non_labeled_nodes, labels, node_names, s
     predicted_driver_nodes = [node_names[i] for i in non_labeled_nodes if scores[i] >= args.score_threshold]
 
     # Prepare data to save to CSV
-    stats_output_file = os.path.join('gat/results/gene_prediction/', f'{args.model_type}_{args.net_type}_prediction_stats_{args.num_epochs}.csv')
+    stats_output_file = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_prediction_stats_{args.num_epochs}.csv')
     
     with open(stats_output_file, 'w', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
@@ -543,7 +534,7 @@ def generate_kde_and_curves(logits, node_names, degree_counts_above, degree_coun
         verticalalignment='top', bbox=dict(facecolor='white', alpha=0.8, edgecolor='none')
     )
 
-    kde_output_path = os.path.join('gat/results/gene_prediction/', f'{args.model_type}_{args.net_type}_kde_plot_epo{args.num_epochs}_2048.png')
+    kde_output_path = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_kde_plot_epo{args.num_epochs}_2048.png')
     plt.savefig(kde_output_path, bbox_inches='tight')
     print(f"KDE plot saved to {kde_output_path}")
 
@@ -559,8 +550,8 @@ def generate_kde_and_curves(logits, node_names, degree_counts_above, degree_coun
     labeled_labels_np = labeled_labels.cpu().detach().numpy() if isinstance(labeled_labels, torch.Tensor) else labeled_labels
 
     # Save ROC and PR curves
-    output_file_roc = os.path.join('gat/results/gene_prediction/', f'{args.model_type}_{args.net_type}_epo{args.num_epochs}_2048_roc_curves.png')
-    output_file_pr = os.path.join('gat/results/gene_prediction/', f'{args.model_type}_{args.net_type}_epo{args.num_epochs}_2048_pr_curves.png')
+    output_file_roc = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_epo{args.num_epochs}_2048_roc_curves.png')
+    output_file_pr = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_epo{args.num_epochs}_2048_pr_curves.png')
 
     plot_roc_curve(labeled_labels_np, labeled_scores_np, output_file_roc)
     plot_pr_curve(labeled_labels_np, labeled_scores_np, output_file_pr)
@@ -651,7 +642,7 @@ def plot_model_performance(args):
     plt.xlabel("AUROC", fontsize=14)
 
     # Save the plot
-    comp_output_path = os.path.join('gat/results/gene_prediction/', f'{args.model_type}_{args.net_type}_comp_plot_epo{args.num_epochs}_2048.png')
+    comp_output_path = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_comp_plot_epo{args.num_epochs}_2048.png')
     plt.savefig(comp_output_path, bbox_inches='tight')
     
     print(f"Comparison plot saved to {comp_output_path}")
@@ -717,7 +708,7 @@ def save_predicted_scores(scores, labels, nodes, args):
 
     # Define CSV file path
     csv_file_path = os.path.join(
-        'gat/results/gene_prediction/',
+        'results/gene_prediction/',
         f'{args.model_type}_{args.net_type}_predicted_scores_threshold{args.score_threshold}_epo{args.num_epochs}.csv'
     )
 
@@ -756,7 +747,7 @@ def save_average_scores(label_scores, args):
     """
     # Define CSV file path
     average_scores_file = os.path.join(
-        'gat/results/gene_prediction/',
+        'results/gene_prediction/',
         f'{args.model_type}_{args.net_type}_average_scores_by_label_threshold{args.score_threshold}_epo{args.num_epochs}.csv'
     )
 
@@ -806,7 +797,7 @@ def plot_average_scores(label_scores, args):
 
     # Define plot save path
     plot_path = os.path.join(
-        'gat/results/gene_prediction/',
+        'results/gene_prediction/',
         f'{args.model_type}_{args.net_type}_average_scores_with_error_bars_threshold{args.score_threshold}_epo{args.num_epochs}.png'
     )
 
@@ -852,7 +843,7 @@ def plot_score_distributions(label_scores, args):
 
             # Define plot save path
             plot_path = os.path.join(
-                'gat/results/gene_prediction/',
+                'results/gene_prediction/',
                 f'{args.model_type}_{args.net_type}_score_distribution_label{label}_threshold{args.score_threshold}_epo{args.num_epochs}.png'
             )
 
@@ -893,7 +884,7 @@ def save_performance_metrics(epoch_times, cpu_usages, gpu_usages, args):
 
     # Define CSV path
     metrics_csv_path = os.path.join(
-        'gat/results/gene_prediction/',
+        'results/gene_prediction/',
         f'{args.model_type}_{args.net_type}_performance_metrics_epo{args.num_epochs}_2048.csv'
     )
 
