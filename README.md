@@ -2,6 +2,8 @@
 
 This repository contains the code for our paper, "Adaptive Chebyshev Graph Neural Network for Cancer Gene Prediction with Multi-Omics Integration," accepted for presentation at the IEEE International Conference on Bioinformatics & Biomedicine (BIBM) 2024, held from December 3-6, 2024, in Lisbon, Portugal.
 
+![Alt text](images/__overview_framework.png)
+
 
 ## Data 
 Download the data from the link below and put it the data/multiomics_meth/ before training:
