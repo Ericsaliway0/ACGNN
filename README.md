@@ -5,10 +5,16 @@ This repository contains the code for our paper, "Adaptive Chebyshev Graph Neura
 ![Alt text](images/__overview_framework.png)
 
 
-## Data 
-Download the data from the link below and put it the data/multiomics_meth/ before training:
+## Data Source
 
--) https://drive.google.com/file/d/1l7mbTn2Nxsbc7LLLJzsT8y02scD23aWo/view?usp=sharing
+The dataset is obtained from the following sources:
+
+- **[STRING database](https://string-db.org/cgi/download?sessionId=b7WYyccF6G1p)**  
+- **[HIPPIE: Human Integrated Protein-Protein Interaction rEference](https://cbdm-01.zdv.uni-mainz.de/~mschaefer/hippie/download.php)**  
+- **[ConsensusPathDB (CPDB)](http://cpdb.molgen.mpg.de/CPDB)**  
+
+These databases provide curated and integrated protein-protein interaction (PPI) and pathway data for bioinformatics research.
+
 
 ## Setup
 
@@ -44,6 +50,12 @@ pip install -r requirements.txt
 -) conda install -c dglteam dgl
 
 -) pip install seaborn
+
+
+## Data 
+Download the data from the link below and put it the data/multiomics_meth/ before training:
+
+-) https://cbdm-01.zdv.uni-mainz.de/~mschaefer/hippie/download.php
 
 ## Get start
 python main.py --model_type ACGNN --net_type CPDB --score_threshold 0.99 --learning_rate 0.001 --num_epochs 200
