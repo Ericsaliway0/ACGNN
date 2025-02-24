@@ -1,0 +1,304 @@
+
+%\section{Technical Background: Graph Neural Networks}
+
+	
+	\maketitle
+	
+	\subsection*{Topology Adaptive Graph Convolution Network (TAGNet)}
+	The Topology Adaptive Graph Convolution Network (TAGNet) is a graph neural network model designed to leverage local graph topology for feature aggregation. Unlike standard graph convolutional networks (GCNs), TAGNet introduces a fixed number of hops for information propagation, enabling effective learning of higher-order neighborhood structures.
+	
+	\subsection*{Mathematical Formulation}
+	
+	Given a graph \( G = (V, E) \), where \( V \) is the set of nodes and \( E \) is the set of edges, let \( \mathbf{X} \in \mathbb{R}^{N \times F} \) represent the input feature matrix, where \( N \) is the number of nodes and \( F \) is the number of input features per node.
+	
+	The TAGNet model consists of the following components:
+	
+	\subsubsection*{TAGConv Layer}
+	The TAG convolution operation aggregates information from up to \( k \)-hops in the graph. For each node \( i \), the output of the TAGConv layer is computed as:
+	\[
+	\mathbf{H}^{(l+1)}_i = \sum_{j=0}^{k} \mathbf{\Theta}_j (\mathbf{A}^j \mathbf{H}^{(l)})
+	\]
+	where:
+	\begin{itemize}
+		\item \( \mathbf{H}^{(l)} \in \mathbb{R}^{N \times F_l} \): Node features at layer \( l \).
+		\item \( \mathbf{A} \): Normalized adjacency matrix of the graph.
+		\item \( \mathbf{A}^j \): \( j \)-th power of the adjacency matrix, representing \( j \)-hop neighbors.
+		\item \( \mathbf{\Theta}_j \): Learnable weight matrix for \( j \)-hop aggregation.
+		\item \( k \): Maximum number of hops.
+	\end{itemize}
+	
+	\subsubsection*{Network Architecture}
+	The TAGNet architecture is composed of two TAGConv layers followed by a Multilayer Perceptron (MLP):
+	\begin{align*}
+		\mathbf{H}^{(1)} &= \text{ReLU}(\text{TAGConv}(\mathbf{X}, \mathbf{A})) \\
+		\mathbf{H}^{(2)} &= \text{ReLU}(\text{TAGConv}(\mathbf{H}^{(1)}, \mathbf{A})) \\
+		\mathbf{Y} &= \text{MLP}(\mathbf{H}^{(2)})
+	\end{align*}
+	
+	\subsubsection*{Multilayer Perceptron (MLP)}
+	The MLP is used to project the learned features from the final TAGConv layer into the desired output space. It is defined as:
+	\[
+	\text{MLP}(\mathbf{H}) = \text{ReLU}(\mathbf{H} \mathbf{W}_1 + \mathbf{b}_1) \mathbf{W}_2 + \mathbf{b}_2
+	\]
+	where \( \mathbf{W}_1, \mathbf{W}_2 \) and \( \mathbf{b}_1, \mathbf{b}_2 \) are learnable weights and biases.
+	
+	\subsection*{Advantages of TAGNet}
+	\begin{itemize}
+		\item \textbf{Topology-Aware Aggregation:} The ability to aggregate information from multiple hops allows TAGNet to capture rich structural information.
+		\item \textbf{Flexibility:} By varying \( k \), TAGNet can adapt to graphs with different local structures.
+		\item \textbf{Improved Learning:} The combination of TAGConv layers with MLP enhances feature representation and classification accuracy.
+	\end{itemize}
+	
+	\subsection*{Conclusion}
+	TAGNet extends the capabilities of traditional graph convolution by incorporating multi-hop information aggregation in a computationally efficient manner. Its ability to adaptively learn from local topology makes it a powerful model for tasks involving graph-structured data.
+
+
+
+Graph Neural Networks (GNNs) are a class of deep learning models designed to process graph-structured data. Unlike traditional neural networks, which operate on Euclidean data (e.g., images or sequences), GNNs generalize the learning paradigm to non-Euclidean spaces, capturing relationships between nodes in a graph. In this section, we provide an overview of the GNN architectures of Graph Convolutional Networks (GCN), Graph Attention Networks (GAT), Graph Isomorphism Networks (GIN), and GraphSAGE.
+
+\subsection{Graph Convolutional Networks (GCN)}
+
+The Graph Convolutional Network \cite{kipf2017semi} is one of the foundational architectures in GNNs. GCNs leverage a message-passing mechanism where node features are updated by aggregating information from their neighbors. Mathematically, the propagation rule for a single GCN layer is expressed as:
+\begin{equation}
+H^{(l+1)} = \sigma(\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} H^{(l)} W^{(l)}),
+\end{equation}
+where:
+\begin{itemize}
+	\item $H^{(l)}$ is the feature matrix at layer $l$.
+	\item $\tilde{A} = A + I$ is the adjacency matrix with added self-loops.
+	\item $\tilde{D}$ is the degree matrix of $\tilde{A}$.
+	\item $W^{(l)}$ is the learnable weight matrix at layer $l$.
+	\item $\sigma(\cdot)$ is an activation function (e.g., ReLU).
+\end{itemize}
+
+
+\bigskip
+\subsection{Graph Attention Networks (GAT)}
+
+Graph Attention Networks \cite{velickovic2018graph} introduce attention mechanisms to GNNs, enabling nodes to assign different weights to their neighbors during aggregation. The attention coefficient $\alpha_{ij}$ for edge $(i, j)$ is computed as:
+\begin{equation}
+\alpha_{ij} = \frac{\exp(\text{LeakyReLU}(a^{\top} [W h_i \Vert W h_j]))}{\sum_{k \in \mathcal{N}(i)} \exp(\text{LeakyReLU}(a^{\top} [W h_i \Vert W h_k]))},
+\end{equation}
+where:
+\begin{itemize}
+	\item $h_i$ and $h_j$ are the features of nodes $i$ and $j$.
+	\item $W$ is the shared weight matrix.
+	\item $a$ is the learnable attention vector.
+	\item $\Vert$ denotes vector concatenation.
+\end{itemize}
+
+The updated node features are computed as:
+\begin{equation}
+h_i^{\prime} = \sigma\left(\sum_{j \in \mathcal{N}(i)} \alpha_{ij} W h_j\right).
+\end{equation}
+
+\bigskip
+\subsection{Graph Isomorphism Networks (GIN)}
+
+Graph Isomorphism Networks \cite{xu2018powerful} are designed to be as powerful as the Weisfeiler-Lehman test for graph isomorphism. GIN employs a simple but expressive aggregation scheme given by:
+\begin{equation}
+h_v^{(l+1)} = \text{MLP}^{(l)}\left((1 + \epsilon^{(l)}) h_v^{(l)} + \sum_{u \in \mathcal{N}(v)} h_u^{(l)}\right),
+\end{equation}
+where:
+\begin{itemize}
+	\item $\text{MLP}^{(l)}$ is a multilayer perceptron at layer $l$.
+	\item $\epsilon^{(l)}$ is a learnable parameter.
+	\item $h_v^{(l)}$ is the feature vector of node $v$ at layer $l$.
+\end{itemize}
+
+%%GIN's architecture allows it to capture graph structures effectively, making it suitable for graph-level tasks.
+
+\bigskip
+\subsection{GraphSAGE}
+
+GraphSAGE \cite{hamilton2017inductive} is an inductive framework that learns to aggregate features from a fixed-size neighborhood of each node. The aggregation process can be expressed mathematically as:
+\begin{equation}
+	h_v^{(k)} = \sigma\left( W^{(k)} \cdot \text{AGG}\left( { h_u^{(k-1)} : u \in \mathcal{N}(v) } \cup { h_v^{(k-1)} } \right) \right),
+\end{equation}
+where $h_v^{(k)}$ is the embedding of node $v$ at layer $k$, $\mathcal{N}(v)$ represents the neighborhood of $v$, $\text{AGG}$ is the aggregation function (e.g., mean, max, or LSTM-based), $W^{(k)}$ is the learnable weight matrix, and $\sigma$ is a non-linear activation function such as ReLU. For the initial layer, $h_v^{(0)} = x_v$, the input features of node $v$.
+
+
+%%GraphSAGE is particularly effective in inductive learning scenarios where unseen nodes or graphs are encountered during inference.
+%
+%\subsection{Summary}
+%
+%Each of these architectures leverages unique mechanisms for message passing and aggregation, offering different trade-offs in terms of expressiveness, computational efficiency, and scalability. The choice of a GNN model depends on the specific requirements of the task and the structure of the underlying graph data.
+%
+%\subsection{Rationale for Choosing GraphSAGE}
+%
+%In this research, the Graph Sample and Aggregate (GraphSAGE) model was chosen as the Graph Neural Network (GNN) architecture due to its ability to efficiently handle large-scale graphs while addressing key challenges such as computational scalability and generalizability. Unlike traditional GNNs that operate on a fixed graph structure during training, GraphSAGE learns to generate embeddings by sampling and aggregating features from a node's local neighborhood \cite{hamilton2017inductive}. This inductive approach provides several advantages:
+%
+%\begin{itemize}
+%	\item \textbf{Scalability:} Traditional GNN models, such as Graph Convolutional Networks (GCNs), often require the entire graph to fit into memory, making them unsuitable for large graphs. GraphSAGE mitigates this issue by sampling a fixed number of neighbors during training, significantly reducing memory requirements and computational complexity.
+%	
+%	\item \textbf{Inductive Capability:} GraphSAGE is inherently inductive, meaning it can generate embeddings for previously unseen nodes or graphs during inference. This is crucial for real-world applications where graph data is often dynamic, with new nodes and edges being introduced over time.
+%	
+%	\item \textbf{Flexibility in Aggregation Functions:} GraphSAGE supports various aggregation functions, such as mean, max-pooling, and LSTMs, allowing for a flexible design that can capture different types of neighborhood information. In this study, the choice of aggregation function was guided by the specific characteristics of the graph and the domain requirements.
+%	
+%	\item \textbf{Edge-Level Representations:} For link prediction tasks, GraphSAGE's ability to learn node-level embeddings that capture the structural and feature-based context of each node facilitates the generation of meaningful edge-level representations when combined with appropriate scoring functions.
+%	
+%\end{itemize}
+%
+%Mathematically, the embedding of a node $v$ in GraphSAGE is computed as:
+%\[
+%\mathbf{h}_v^{(k)} = \sigma\left( \mathbf{W}^{(k)} \cdot \mathrm{AGG}^{(k)} \left( \left\{ \mathbf{h}_u^{(k-1)} \mid u \in \mathcal{N}(v) \right\} \right) + \mathbf{b}^{(k)} \right),
+%\]
+%where $\mathbf{h}_v^{(k)}$ represents the embedding of node $v$ at the $k$-th layer, $\mathcal{N}(v)$ denotes the set of neighbors of node $v$, $\mathrm{AGG}^{(k)}$ is the aggregation function, $\mathbf{W}^{(k)}$ is the learnable weight matrix, $\mathbf{b}^{(k)}$ is the bias term, and $\sigma$ is the non-linear activation function.
+%
+%The inductive nature of GraphSAGE, combined with its scalable and flexible framework, makes it particularly well-suited for tasks involving large and dynamic graph datasets, as encountered in this research.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\vspace{0.5cm} % Adjust the space as needed 
+%\subsection{Knowledge Graph Represention Learning}
+%
+%In a traditional machine learning classification setting, we aim to learn a hypothesis \( H \) that maps elements of \( X \) to the label set \( Y \). However, when dealing with graph-structured data, we can leverage the significant information about the dependencies and relationships embedded in the structure of the graph \( G \). This allows us to achieve superior performance by utilizing both the features of individual nodes and the topology of the graph.
+%
+%Graph-based learning approaches, such as Graph Neural Networks (GNNs), exploit this structural information to enhance the learning process. These models are designed to capture the interactions between nodes, considering both local and global graph properties. By incorporating the rich information present in the graph, we can learn more accurate and robust hypotheses for tasks like node classification, link prediction, and graph classification. This graph-based approach often leads to improved performance compared to traditional methods that do not consider the underlying graph structure.
+%
+%Traditional graph embedding techniques such as node2vec \cite{grover2016node2vec}, DeepWalk \cite{Perozzi_2014}, and graph convolutional networks (GCNs) \cite{kipf2017semi} aim to learn low-dimensional representations of nodes by capturing local neighborhood structures and node features. 
+%
+%Graph Attention Networks (GATs) \cite{velivckovic2017graph} were among the first to apply self-attention to graphs. In GATs, the attention mechanism is used to compute the importance of neighboring nodes when aggregating their features. This results in node embeddings that are more adaptive to the graph structure and node features.
+%
+%Self-attention-based node embeddings have shown significant improvements in various graph-related tasks such as node classification~\cite{klicpera2018predict}, link prediction~\cite{zhang2018link}, and graph clustering~\cite{xu2018powerful}. However, as with other GNNs, GATs can suffer from over-smoothing, where repeated message passing makes node features indistinguishable from one another~\cite{li2018deeper,hu2020pretraining}. GATs can also be sensitive to noise in the graph structure, where incorrect or noisy edges can negatively impact the attention mechanism and overall performance~\cite{feng2019graph}. The attention mechanism results in more informative and discriminative embeddings, leading to better performance on downstream tasks like node classification or link prediction. In addition,  the introduced residual connection ensures that the model benefits from residual learning by adding the input features \( \mathbf{h}_v^{(l)} \) directly to the output of the GAT layer, making it more stable and capable of learning deeper representations, and allows the model converge faster during training. 
+%
+%\subsection{Differential expression analysis of miRNAs}
+%Differential expression analysis of miRNAs focuses on two perspectives: the miRNA-centric view, which investigates which cancer types are regulated by a particular miRNA, and the cancer-centric view, which examines which miRNAs may be involved in a specific type of cancer.
+%
+%
+%\subsection{P-value of miRNAs}
+%
+%The dbDEMC (Database of Differentially Expressed MiRNAs in Human Cancers) provides p-values as a measure of statistical significance for the differential expression of miRNAs between cancerous and normal tissues. The p-value is typically derived through statistical testing methods that compare the expression levels of miRNAs between these groups.
+%
+%Here's a general overview of how p-values might be calculated in databases like dbDEMC:
+%
+%Data Collection: Expression data for miRNAs is collected from cancer and normal tissue samples. This data might come from microarray experiments, RNA-Seq, or other high-throughput technologies.
+%
+%Statistical Testing: To determine if the expression levels of a particular miRNA differ significantly between cancerous and normal tissues, statistical tests like the t-test, ANOVA, or non-parametric tests (e.g., Mann-Whitney U test) are applied. These tests evaluate the null hypothesis that there is no difference in miRNA expression between the two groups.
+%
+%Calculation of P-value: The statistical test results in a p-value, which indicates the probability of observing the data, or something more extreme, assuming that the null hypothesis is true. A low p-value suggests that the observed difference is unlikely to have occurred by chance, implying that the miRNA is differentially expressed.
+%
+%Multiple Testing Correction: Since multiple miRNAs are tested simultaneously, a correction for multiple comparisons (e.g., Bonferroni correction or False Discovery Rate (FDR) adjustment) is often applied to control the likelihood of false positives.
+%
+%Reporting: The resulting p-values are then reported in the database along with the miRNAs and other relevant information, allowing users to identify miRNAs that are significantly associated with cancer.
+%
+%In the case of dbDEMC, the specific methods for p-value calculation may involve comparisons across a large number of samples and use of statistical frameworks to ensure robustness and accuracy. The exact details might be documented in the original research papers associated with the database or in the database's technical documentation.
+%
+%We use the p-value returned by the enrichment analysis of the differentially expressed miRNA (DEM) targets on GO terms and KEGG pathways~\cite{xu2022} as the node weight in the graph.  As an example in dbDEMC, the \text{p-value} for \texttt{hsa-miR-106a} in B cell lymphoma is \( 4.16 \times 10^{-17} \). This extremely low P-value indicates a statistically significant association between the expression of \texttt{hsa-miR-106a} and B cell lymphoma, suggesting that the observed expression change is highly unlikely to have occurred by chance.
+%
+%\subsection{GNNs for Graph Learning}
+%
+%By leveraging the connectivity and features of nodes in a graph, GNNs are able to learn effective representations that can be used for various tasks such as node classification, link prediction, and graph classification. GNNs extend neural network models to graph data by incorporating the graph structure into the learning process. The basic idea is to iteratively update the representation of each node by aggregating feature information from its neighbors~\cite{kipf2017semi, hamilton2017inductive}. This process can be broadly categorized into two main stages: message passing and aggregation.
+%
+%\subsection{Message Passing and Aggregation}
+%
+%During the message passing phase, each node collects messages from its neighbors. These messages are functions of the neighboring nodes' features and potentially the edge features. Formally, for a node $v$, the message passing can be expressed as:
+%\[
+%m_v^{(t+1)} = \text{AGGREGATE}^{(t)}(\{h_u^{(t)} : u \in \mathcal{N}(v)\}),
+%\]
+%where $h_u^{(t)}$ is the feature vector of neighbor $u$ at iteration $t$, and $\mathcal{N}(v)$ denotes the set of neighbors of $v$. The aggregation function, $\text{AGGREGATE}^{(t)}$, can take various forms such as mean, sum, or max~\cite{hamilton2017inductive}.
+%
+%In the aggregation phase, the node updates its feature vector using the aggregated messages and its own features:
+%\[
+%h_v^{(t+1)} = \text{UPDATE}^{(t)}(h_v^{(t)}, m_v^{(t+1)}),
+%\]
+%where $\text{UPDATE}^{(t)}$ is typically implemented as a neural network layer, such as a feedforward neural network or a gated recurrent unit~\cite{gilmer2017neural}.
+%
+%\subsection{GNN Architectures}
+%
+%Several GNN architectures have been proposed, each with unique mechanisms for message passing and aggregation. Some of the notable architectures include:
+%
+%\subsubsection{Graph Convolutional Networks (GCNs)} GCNs generalize the convolution operation to graph-structured data by performing a weighted average of the features of neighboring nodes~\cite{kipf2017semi}. The layer-wise propagation rule for GCNs is given by:
+%\[
+%H^{(l+1)} = \sigma(\tilde{D}^{-1/2} \tilde{A} \tilde{D}^{-1/2} H^{(l)} W^{(l)}),
+%\]
+%where $\tilde{A}$ is the adjacency matrix with added self-loops, $\tilde{D}$ is the degree matrix, $H^{(l)}$ is the feature matrix at layer $l$, $W^{(l)}$ is the weight matrix, and $\sigma$ is a non-linear activation function.
+%
+%\subsubsection{GraphSAGE} GraphSAGE (Graph Sample and AggregatE) is an inductive framework that generates node embeddings by sampling and aggregating features from a node's local neighborhood~\cite{hamilton2017inductive}. This method allows for the generation of embeddings for previously unseen nodes.
+%
+%\subsubsection{Graph Attention Networks (GATs)} GATs introduce attention mechanisms to GNNs, allowing nodes to weight the importance of their neighbors' features dynamically~\cite{velivckovic2017graph}. The attention coefficients are computed using a shared attention mechanism, enabling the model to focus on the most relevant parts of the graph.
+%
+%
+%%\vspace{0.5cm} % Adjust the space as needed 
+%
+%
+%
+%\subsection{Pathway Enrichment Analysis}	
+%
+%Pathway Enrichment Analysis (PEA), also known as Gene Set Enrichment Analysis (GSEA)\cite{subramanian2005}, is a bioinformatics method used to identify biological pathways that are significantly represented in a list of genes\cite{reimand2019pathway}. In this work, we utilize the Pathway Analysis Service offered by Reactome~\cite{reactome_gnn}, which provides an API for pathway over-representation and expression analysis, along with a species comparison tool.
+%
+%
+%
+%%\vspace{0.5cm} 
+%\subsection{Self-attention Based Node Embeddings}	
+%
+%
+%Self-attention has become a cornerstone technique in modern machine learning, particularly within the realm of natural language processing (NLP). Its success in NLP has inspired its application to other domains, including graph representation learning, leading to the development of self-attention based node embeddings. These embeddings leverage the self-attention mechanism to learn more expressive and context-aware representations of nodes in a graph.
+%
+%Traditional graph embedding techniques such as node2vec \cite{grover2016node2vec}, DeepWalk \cite{Perozzi_2014}, and graph convolutional networks (GCNs) \cite{kipf2017semi} aim to learn low-dimensional representations of nodes by capturing local neighborhood structures and node features. 
+%
+%Graph Attention Networks (GATs) \cite{velivckovic2017graph} were among the first to apply self-attention to graphs. In GATs, the attention mechanism is used to compute the importance of neighboring nodes when aggregating their features. This results in node embeddings that are more adaptive to the graph structure and node features.
+%
+%Self-attention-based node embeddings have shown significant improvements in various graph-related tasks such as node classification~\cite{klicpera2018predict}, link prediction~\cite{zhang2018link}, and graph clustering~\cite{xu2018powerful}. However, as with other GNNs, GATs can suffer from over-smoothing, where repeated message passing makes node features indistinguishable from one another~\cite{li2018deeper}. GATs can also be sensitive to noise in the graph structure, where incorrect or noisy edges can negatively impact the attention mechanism and overall performance~\cite{feng2019graph}.
+%
+%
+%
+%\section*{Introduction}
+%The Graph Attention Network (GAT) model is a neural network architecture designed for graph-structured data. It leverages an attention mechanism to learn node embeddings by focusing on the most relevant neighbors in the graph. This document outlines the key optimization objectives of the GAT model.
+%
+%\section*{1. Attention Mechanism}
+%\textbf{Objective:} The primary innovation of GAT is the use of an attention mechanism to assign different weights to different neighbors of a node. The objective is to learn which neighbors are more important in determining the representation of a given node.
+%
+%\textbf{Mathematical Formulation:} For a node $v_i$ and its neighbor $v_j$, the attention coefficient $\alpha_{ij}$ is calculated as:
+%\[
+%\alpha_{ij} = \frac{\exp\left(\text{LeakyReLU}\left(a^\top [Wh_i || Wh_j]\right)\right)}{\sum_{k \in \mathcal{N}(i)} \exp\left(\text{LeakyReLU}\left(a^\top [Wh_i || Wh_k]\right)\right)}
+%\]
+%Here, $W$ is a learnable weight matrix, $a$ is a learnable vector, and $||$ denotes concatenation. The optimization process aims to learn these parameters such that the attention coefficients focus on the most relevant neighbors.
+%
+%\section*{2. Message Passing with Attention}
+%\textbf{Objective:} The GAT model propagates information across the graph while using attention to selectively weigh contributions from neighboring nodes. The goal is to optimize node embeddings by effectively aggregating information from neighbors weighted by the attention coefficients.
+%
+%\textbf{Aggregation:} The final embedding for node $v_i$ is computed as a weighted sum of the transformed features of its neighbors:
+%\[
+%h'_i = \sigma\left(\sum_{j \in \mathcal{N}(i)} \alpha_{ij} W h_j \right)
+%\]
+%where $\sigma$ is an activation function, such as LeakyReLU.
+%
+%\section*{3. Preserving Local Graph Structure}
+%\textbf{Objective:} GAT aims to preserve the local structure of the graph in its embeddings. The attention mechanism is optimized to ensure that important structural information from neighboring nodes is emphasized in the learned embeddings.
+%
+%\section*{4. Multi-head Attention}
+%\textbf{Objective:} GAT uses multi-head attention to stabilize the learning process and capture different aspects of neighborhood information. Multiple attention heads are applied in parallel, and their outputs are either concatenated or averaged.
+%
+%\textbf{Optimization:} The model optimizes the parameters of multiple attention heads to ensure that they collectively capture diverse and complementary information about the node's neighborhood.
+%
+%\section*{5. Regularization and Overfitting Prevention}
+%\textbf{Objective:} To prevent overfitting, GAT introduces dropout in both the attention mechanism and the feature transformation. The optimization objective includes tuning the dropout rates to balance model capacity and regularization.
+%
+%\textbf{Dropout:} Regularization is applied through dropout layers during training to ensure that the model generalizes well to unseen data.
+%
+%\section*{6. End-to-End Learning with Supervised or Semi-supervised Loss}
+%\textbf{Objective:} The final optimization objective in GAT is to minimize a task-specific loss function (e.g., cross-entropy loss for node classification) in a supervised or semi-supervised learning setting. The model is trained end-to-end, optimizing the attention mechanism, feature transformations, and final predictions simultaneously.
+%
+%\textbf{Loss Function:} For node classification, the cross-entropy loss is commonly used:
+%\[
+%\mathcal{L} = - \sum_{i \in \mathcal{V}_\text{train}} y_i \log(\hat{y}_i)
+%\]
+%where $y_i$ is the true label and $\hat{y}_i$ is the predicted label for node $i$.
+%
+%\section*{7. Scalability and Efficiency}
+%\textbf{Objective:} Although GAT is computationally more intensive due to the attention mechanism, the model is designed to scale to large graphs by leveraging parallel computation across attention heads and nodes. The optimization also involves balancing model complexity and computational efficiency.
+%
+%\section*{Summary}
+%The optimization objectives of the GAT model include:
+%\begin{itemize}
+%	\item Learning meaningful attention weights to highlight important neighbors.
+%	\item Aggregating information from neighbors to preserve local graph structure.
+%	\item Stabilizing learning and capturing diverse information using multi-head attention.
+%	\item Regularizing the model to prevent overfitting.
+%	\item Minimizing task-specific loss functions through end-to-end training.
+%	\item Balancing computational efficiency and scalability for large graphs.
+%\end{itemize}
+%
+%These objectives help the GAT model learn powerful and expressive node embeddings for various graph-based tasks such as node classification, link prediction, and graph clustering.
+
+
+\vspace{0.5cm} 

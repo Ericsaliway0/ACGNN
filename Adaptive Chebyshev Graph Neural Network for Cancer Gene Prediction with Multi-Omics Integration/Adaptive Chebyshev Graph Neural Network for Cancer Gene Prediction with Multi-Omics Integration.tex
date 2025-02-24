@@ -1,0 +1,410 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+%\usepackage{algorithmic}
+\usepackage{hyperref}
+\usepackage{graphicx} 
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+\usepackage{algorithmicx}
+\usepackage{multirow}
+\usepackage{booktabs} % For better horizontal lines
+\usepackage{array}    % For left-aligning the second column
+\usepackage{caption}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{comment}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\usepackage{booktabs} % For better table rules
+
+
+\usepackage{longtable}
+\usepackage{booktabs}
+
+
+\usepackage{amsmath}
+\usepackage{bm} % For bold math symbols
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+% Define styles for nodes and edges
+\tikzset{
+	node/.style={circle, draw, fill=blue!20, minimum size=0.4cm}, % Adjust the minimum size here
+	edge/.style={thick,->,>=stealth}
+}
+\newcommand{\comm}[1]{}
+\renewcommand{\baselinestretch}{1.35}
+
+\usepackage{tikz-cd}
+% Ca
+\usepackage[labelsep=endash]{caption}
+\DeclareCaptionLabelFormat{UC}{\textsc{#1} #2}
+\captionsetup{labelformat=UC} % for all labels
+
+% Define mathematical Expecations operator
+\def\E{\mathcal{E}}
+
+
+%\usepackage[redeflists]{IEEEtrantools}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\newtheorem{definition}{Definition}
+
+\begin{document}
+	\bstctlcite{IEEEexample:BSTcontrol}
+	
+	\title{Adaptive Chebyshev Graph Neural Network for Cancer Gene Prediction with Multi-Omics Integration}
+	%% \title{A Biological Knowledge Graph for Representation Learning}	
+	\author{\IEEEauthorblockN{Sa Li, Jonah Shader, Abhijeet Bhattacharya, Tianle Ma}
+	\IEEEauthorblockA{
+		\textit{Oakland University}\\
+		\{sa,jonahshader,bhattacharya,tianlema\}@oakland.edu}
+}
+
+	
+
+	\maketitle
+	
+	\begin{abstract}
+		\input{abstract}
+	\end{abstract}
+	
+	\begin{IEEEkeywords}
+		cancer driver genes, graph neural network, node embeddings, Chebyshev networks.
+	\end{IEEEkeywords}
+	
+	
+	\vspace{0.5cm} 
+	
+	
+	%======================================================
+	\section{Introduction}
+	\label{sec:introduction}
+	%======================================================
+	\input{introduction}
+	
+	
+	%======================================================
+%	\section{Preliminaries and Backgrounds}
+%	\label{sec:background}
+%	%======================================================
+%    \input{background}
+	
+	%======================================================
+	\section{Related Work}
+	\label{sec:relatedwork}
+	%======================================================
+	\input{relatedwork}
+	
+	%======================================================
+	\section{Materials and Methods}
+	\label{sec:methods}
+	%======================================================
+	\input{methods}
+	
+	%======================================================
+	\section{Experiments}
+	\label{sec:experiment}
+%	%======================================================
+	\input{experiment}
+	
+	%======================================================
+	\section{Discussion and Conclusions}
+	\label{sec:conclusion}
+	%======================================================
+	\input{conclusion}
+	
+	\section*{Acknowledgements}
+	\label{sec:acknowledgement}
+	\input{acknowledgement}
+	
+%%\clearpage
+%%\clearpage
+	%\section{References}
+	\begin{thebibliography}{99}
+
+%%Introduction
+
+\bibitem{dees2012music}
+N. D. Dees \textit{et al.}, ``MuSiC: Identifying Mutational Significance in Cancer Genomes,'' \textit{Genome Research}, vol. 22, pp. 1589–1598, 2012. doi: \url{10.1101/gr.134635.111}.
+
+\bibitem{vogelstein2013cancer}
+B. Vogelstein \textit{et al.}, ``Cancer Genome Landscapes,'' \textit{Science}, vol. 339, pp. 1546–1558, 2013. doi: \url{10.1126/science.1235122}.
+
+\bibitem{leiserson2015pan}
+M. D. M. Leiserson, F. Vandin, H.-T. Wu, \textit{et al.}, ``Pan-Cancer Network Analysis Identifies Combinations of Rare Somatic Mutations Across Pathways and Protein Complexes,'' \textit{Nature Genetics}, vol. 47, pp. 106–114, 2015. doi: \url{10.1038/ng.3168}.
+
+\bibitem{weinstein2013tcga}
+J. N. Weinstein \textit{et al.}, ``The cancer genome atlas pan-cancer analysis project,'' \textit{Nature Genetics}, vol. 45, no. 10, pp. 1113–1120, 2013.
+
+\bibitem{bashashati2012drivernet}
+A. Bashashati \textit{et al.}, ``DriverNet: Uncovering the impact of somatic driver mutations on transcriptional networks in cancer,'' \textit{Genome Biology}, vol. 13, no. 12, p. R124, 2012. doi: \url{10.1186/gb-2012-13-12-r124}.
+
+
+
+\bibitem{lawrence2013mutational}
+M. S. Lawrence \textit{et al.}, ``Mutational Heterogeneity in Cancer and the Search for New Cancer-Associated Genes,'' \textit{Nature}, vol. 499, pp. 214–218, 2013. doi: \url{10.1038/nature12213}.
+
+\bibitem{alexandrov2013signatures}
+L. B. Alexandrov \textit{et al.}, ``Signatures of Mutational Processes in Human Cancer,'' \textit{Nature}, vol. 500, pp. 415–421, 2013. doi: \url{10.1038/nature12477}.
+
+\bibitem{hou2014dawnrank}
+J. P. Hou and J. Ma, ``DawnRank: Discovering Personalized Driver Genes in Cancer,'' \textit{Genome Medicine}, vol. 6, no. 7, p. 56, 2014. doi: \url{10.1186/s13073-014-0056-8}.
+
+\bibitem{repana2019network}
+D. Repana \textit{et al.}, ``The Network of Cancer Genes (NCG): A Comprehensive Catalogue of Known and Candidate Cancer Genes from Cancer Sequencing Screens,'' \textit{Genome Biology}, vol. 20, pp. 1–12, 2019. doi: \url{10.1186/s13059-019-1760-7}.
+
+\bibitem{sondka2018cosmic}
+Z. Sondka \textit{et al.}, ``The COSMIC Cancer Gene Census: Describing Genetic Dysfunction Across All Human Cancers,'' \textit{Nature Reviews Cancer}, vol. 18, pp. 696–705, 2018. doi: \url{10.1038/s41568-018-0060-1}.
+
+\bibitem{tamborero2013oncodriveclust}
+D. Tamborero, A. Gonzalez-Perez, and N. Lopez-Bigas, ``Onco- driveCLUST: Exploiting the positional clustering of somatic mutations to identify cancer genes,'' \textit{Bioinformatics}, vol. 29, no. 18, pp. 2238–2244, Sep. 2013.
+
+\bibitem{gillman2023identifying}
+R. Gillman, M. A. Field, U. Schmitz, R. Karamatic, and L. Hebbard, ``Identifying cancer driver genes in individual tumours,'' \textit{Computational and Structural Biotechnology Journal}, vol. 21, pp. 5028–5038, 2023.
+
+\bibitem{song2019identifying}
+J. Song, W. Peng, F. Wang, and J. Wang, ``Identifying driver genes involving gene dysregulated expression, tissue-specific expression and gene-gene network,'' \textit{BMC Med. Genomics}, vol. 12, no. S7, p. 168, Dec. 2019.
+
+\bibitem{peng2021identifying}
+W. Peng, S. Yi, W. Dai, and J. Wang, ``Identifying and ranking potential cancer drivers using representation learning on attributed network,'' \textit{Methods}, vol. 192, pp. 13–24, Aug. 2021.
+
+\bibitem{peng2022improving}
+W. Peng, Q. Tang, W. Dai, and T. Chen, ``Improving cancer driver gene identification using multi-task learning on graph convolutional network,'' \textit{Briefings Bioinf.}, vol. 23, no. 1, Jan. 2022, Art. no. bbab432.
+
+
+\bibitem{song2020entropy}
+J. Song, W. Peng, and F. Wang, ``An entropy-based method for identifying mutual exclusive driver genes in cancer,'' \textit{IEEE/ACM Trans. Comput. Biol. Bioinf.}, vol. 17, no. 3, pp. 758–768, May 2020.
+
+\bibitem{zhang2022dgmp}
+S. W. Zhang, J. Y. Xu, and T. Zhang, ``DGMP: Identifying cancer driver genes by jointing DGCN and MLP from multi-omics genomic data,'' \textit{Genomics Proteomics Bioinformatics}, vol. 20, no. 5, pp. 928–938, Oct. 2022, doi: 10.1016/j.gpb.2022.11.004. Epub Dec. 1, 2022. PMID: 36464123; PMCID: PMC10025764.
+
+\bibitem{cheng2016advances}
+F. Cheng, J. Zhao, and Z. Zhao, ``Advances in computational approaches for prioritizing driver mutations and significantly mutated genes in cancer genomes,'' \textit{Briefings Bioinf.}, vol. 17, no. 4, pp. 642–656, Jul. 2016.
+
+\bibitem{collier2019lotus}
+O. Collier, V. Stoven, and J.-P. Vert, ``LOTUS: a single- and multitask machine learning algorithm for the prediction of cancer driver genes,'' \textit{PLoS Computational Biology}, vol. 15, 2019, Article e1007381. doi: \url{10.1371/journal.pcbi.1007381}.
+
+\bibitem{yi2021graphrepresentation}
+H.-C. Yi, Z.-H. You, D.-S. Huang, \textit{et al.}, ``Graph representation learning in bioinformatics: trends, methods and applications,'' \textit{Briefings in Bioinformatics}, vol. 23, 2021, Article bbab340. doi: \url{10.1093/bib/bbab340}.
+
+\bibitem{mourikis2019cancer}
+T. P. Mourikis, L. Benedetti, E. Foxall, \textit{et al.}, ``Patient-specific cancer genes contribute to recurrently perturbed pathways and establish therapeutic vulnerabilities in esophageal adenocarcinoma,'' \textit{Nature Communications}, vol. 10, p. 3101, 2019. doi: \url{10.1038/s41467-019-11069-0}.
+
+\bibitem{nulsen2021pancancer}
+J. Nulsen, H. Misetic, C. Yau, \textit{et al.}, ``Pan-cancer detection of driver genes at the single-patient resolution,'' \textit{Genome Medicine}, vol. 13, p. 12, 2021. doi: \url{10.1186/s13073-021-00820-7}.
+
+\bibitem{scarselli2009graph}
+F. Scarselli, M. Gori, A. C. Tsoi, M. Hagenbuchner, and G. Monfardini, ``The Graph Neural Network Model,'' \textit{IEEE Transactions on Neural Networks}, vol. 20, no. 1, pp. 61-80, Jan. 2009. doi: 10.1109/TNN.2008.2005605.
+
+
+\bibitem{liu2022conversational}
+X. Liu and M. Yang, ``Research on conversational machine reading comprehension based on dynamic graph neural network,'' \textit{Journal of Integrated Technology}, vol. 11, no. 2, pp. 67–78, 2022.
+
+\bibitem{peng2022drugresponse}
+W. Peng, T. Chen, and W. Dai, ``Predicting drug response based on multi-omics fusion and graph convolution,'' \textit{IEEE Journal of Biomedical and Health Informatics}, vol. 26, no. 3, pp. 1384–1393, Mar. 2022.
+
+\bibitem{peng2022cancerdrugresponse}
+W. Peng, H. Liu, W. Dai, N. Yu, and J. Wang, ``Predicting cancer drug response using parallel heterogeneous graph convolutional networks with neighborhood interactions,'' \textit{Bioinformatics}, vol. 38, no. 19, pp. 4546–4553, Sep. 2022.
+
+\bibitem{albu2022approach}
+A.-I. Albu, ``An approach for predicting protein-protein interactions using supervised autoencoders,'' \textit{Procedia Computer Science}, vol. 207, pp. 2023–2032, 2022, doi: 10.1016/j.procs.2022.09.261.
+
+
+
+%% related works
+
+\bibitem{chatzianastasis2023emgnn}
+M. Chatzianastasis, M. Vazirgiannis, and Z. Zhang, ``Explainable Multilayer Graph Neural Network for Cancer Gene Prediction,'' \textit{Bioinformatics}, Oct. 2023. doi: \url{10.1093/bioinformatics/btad643}. Available: \url{https://doi.org/10.1093/bioinformatics/btad643}.
+
+\bibitem{li2024multimodalgnn}
+B. Li and S. A. Nabavi, ``A Multimodal Graph Neural Network Framework for Cancer Molecular Subtype Classification,'' \textit{BMC Bioinformatics}, vol. 25, p. 27, 2024. Available: \url{https://doi.org/10.1186/s12859-023-05622-4}.
+
+\bibitem{li2023cgmega}
+H. Li, Z. Han, Y. Sun, F. Wang, P. Hu, C. Ren, X. Xu, H. Chen, Y. Yang, and X. Bo, ``CGMega: Explainable Graph Neural Network Framework with Attention Mechanisms for Cancer Gene Module Dissection,'' 2023. doi: \url{10.21203/rs.3.rs-3180743/v1}. Available: \url{https://doi.org/10.21203/rs.3.rs-3180743/v1}.
+
+
+\bibitem{peng2022cancerdriver}
+W. Peng, Q. Tang, W. Dai, and T. Chen, ``Improving Cancer Driver Gene Identification Using Multi-task Learning on Graph Convolutional Network,'' \textit{Briefings in Bioinformatics}, vol. 23, no. 1, Article bbab432, Jan. 2022. Available: \url{https://doi.org/10.1093/bib/bbab432}.
+
+\bibitem{peng2024multinetwork}
+W. Peng, Z. Zhou, W. Dai, N. Yu, and J. Wang, ``Multi-Network Graph Contrastive Learning for Cancer Driver Gene Identification,'' \textit{IEEE Transactions on Network Science and Engineering}, vol. 11, no. 4, pp. 3430-3440, Jul.-Aug. 2024. doi: \url{10.1109/TNSE.2024.3373652}.
+
+
+\bibitem{schulte2021multiomics}
+R. Schulte-Sasse, S. Budach, D. Hnisz, and et al., ``Integration of Multiomics Data with Graph Convolutional Networks to Identify New Cancer Genes and Their Associated Molecular Mechanisms,'' \textit{Nature Machine Intelligence}, vol. 3, pp. 513–526, 2021. Available: \url{https://doi.org/10.1038/s42256-021-00325-y}. 
+
+
+\bibitem{zhang2023heterophilic}
+T. Zhang, S.-W. Zhang, M.-Y. Xie, and Y. Li, ``A Novel Heterophilic Graph Diffusion Convolutional Network for Identifying Cancer Driver Genes,'' \textit{Briefings in Bioinformatics}, vol. 24, no. 3, May 2023, bbad137. Available: \url{https://doi.org/10.1093/bib/bbad137}.
+
+\bibitem{ivan2011web}
+I. G. Iván and V. Grolmusz, ``When the Web Meets the Cell: Using Personalized PageRank for Analyzing Protein Interaction Networks,'' \textit{Bioinformatics}, vol. 27, no. 3, pp. 405–407, 2011. doi: \url{10.1093/bioinformatics/btq671}.
+
+
+\bibitem{zhao2022modig}
+W. Zhao, X. Gu, S. Chen, J. Wu, and Z. Zhou, ``MODIG: Integrating Multi-Omics and Multi-Dimensional Gene Network for Cancer Driver Gene Identification Based on Graph Attention Network Model,'' \textit{Bioinformatics}, vol. 38, no. 21, pp. 4901-4907, Oct. 2022. doi: \url{10.1093/bioinformatics/btac622}.
+
+
+\bibitem{du2018topology}
+J. Du, S. Zhang, G. Wu, J. M. F. Moura, and S. Kar, ``Topology adaptive graph convolutional networks,'' \textit{arXiv preprint}, vol. 1710, no. 10370, 2018. [Online]. Available: \url{https://arxiv.org/abs/1710.10370}.
+
+\bibitem{singh2024gtagcn}
+S. Singh, A. Sharma, and V. K. Chauhan, ``GTAGCN: Generalized Topology Adaptive Graph Convolutional Networks,'' \textit{arXiv}, Mar. 2024. Available: \url{https://arxiv.org/abs/2403.15077}.
+
+
+
+
+
+%%% Materials
+
+\bibitem{kamburov2011consensuspathdb}
+Kamburov, A., Pentchev, K., Galicka, H., Wierling, C., Lehrach, H., \& Herwig, R. "ConsensusPathDB: toward a more complete picture of cell biology." \textit{Nucleic Acids Research}, vol. 39, Database issue, pp. D712-D717, 2011. \url{https://doi.org/10.1093/nar/gkq1156}.
+
+\bibitem{cpdb_citation}
+Li, Z., et al. "CPDB: A comprehensive cancer protein database." \textit{Bioinformatics}, vol. 33, no. 7, pp. 1073-1080, 2017.
+
+\bibitem{tcga_citation}
+Weinstein, J. N., et al. "The Cancer Genome Atlas Pan-Cancer analysis project." \textit{Nature Genetics}, vol. 45, no. 10, pp. 1113-1120, 2013.
+
+\bibitem{string_citation}
+Szklarczyk, D., et al. "STRING v11: protein-protein association networks with increased coverage, supporting functional discovery in genome-wide experimental datasets." \textit{Nucleic Acids Research}, vol. 47, no. D1, pp. D607-D613, 2019.
+
+\bibitem{human_protein_atlas_citation}
+Uhlén, M., et al. "The Human Protein Atlas: an integrated exploration of the human proteome." \textit{Cell}, vol. 162, no. 2, pp. 383-393, 2015.
+
+\bibitem{kegg_citation}
+Kanehisa, M., et al. "KEGG: Kyoto Encyclopedia of Genes and Genomes." \textit{Nucleic Acids Research}, vol. 28, no. 1, pp. 27-30, 2000.
+
+\bibitem{reactome_citation}
+Jassal, B., et al. "Reactome: a database of reactions, pathways and biological processes." \textit{Nucleic Acids Research}, vol. 48, no. D1, pp. D497-D503, 2020.
+
+
+\bibitem{wu2010human}
+G. Wu, X. Feng, and L. Stein, ``A human functional protein interaction network and its application to cancer data analysis,'' \textit{Genome Biology}, vol. 11, no. 5, p. R53, May 2010. doi: \url{10.1186/gb-2010-11-5-r53}. PMID: 20482850; PMCID: PMC2898064.
+
+\bibitem{go_citation}
+The Gene Ontology Consortium. "Gene Ontology: tool for the unification of biology." \textit{Nature Genetics}, vol. 25, no. 1, pp. 25-29, 2000.
+
+\bibitem{hippie_citation}
+Lopes, F. M., et al. "HIPPIE: a human integrated protein-protein interaction database." \textit{Nucleic Acids Research}, vol. 45, no. D1, pp. D207-D212, 2017.
+
+\bibitem{alanis2017hippie}
+Alanis-Lobato, G., Andrade-Navarro, M. A., and Schaefer, M. H. (2017). HIPPIE v2.0: enhancing meaningfulness and reliability of protein-protein interaction networks. \textit{Nucleic Acids Research}, 45(D1), D408–D414. https://doi.org/10.1093/nar/gkw985
+
+\bibitem{huang2018systematic}
+Huang, J. K., Carlin, D. E., Yu, M. K., Zhang, W., Kreisberg, J. F., Tamayo, P., and Ideker, T. "Systematic evaluation of molecular networks for discovery of disease genes." \textit{Cell Systems}, vol. 6, no. 4, pp. 484-495.e5, 2018. \url{https://doi.org/10.1016/j.cels.2018.03.001}.
+
+\bibitem{khurana2013interpretation}
+Khurana, E., Fu, Y., Chen, J., and Gerstein, M. (2013). Interpretation of genomic variants using a unified biological network approach. \textit{PLoS Computational Biology}, 9(3), e1002886. https://doi.org/10.1371/journal.pcbi.1002886
+
+\bibitem{mint_citation}
+Rual, J. F., et al. "MIntAct: an open source database and analysis environment for protein-protein interaction data." \textit{Nucleic Acids Research}, vol. 33, suppl. 1, pp. D225-D229, 2005.
+
+\bibitem{biogrid_citation}
+Chatr-Aryamontri, A., et al. "The BioGRID interaction database: 2015 update." \textit{Nucleic Acids Research}, vol. 43, no. D1, pp. D470-D478, 2015.
+
+\bibitem{szklarczyk2023string}
+D. Szklarczyk, R. Kirsch, M. Koutrouli, K. Nastou, F. Mehryary, R. Hachilif, A. L. Gable, T. Fang, N. T. Doncheva, S. Pyysalo, P. Bork, L. J. Jensen, and C. von Mering, ``The STRING database in 2023: protein-protein association networks and functional enrichment analyses for any sequenced genome of interest,'' \textit{Nucleic Acids Res}, vol. 51, no. D1, pp. D638-D646, Jan. 2023. doi: 10.1093/nar/gkac1000.
+
+
+\bibitem{wang2018unifying}
+Wang, Q., Armenia, J., Zhang, C., et al. "Unifying cancer and normal RNA sequencing data from different sources." \textit{Scientific Data}, vol. 5, 180061, 2018. \url{https://doi.org/10.1038/sdata.2018.61}.
+
+\bibitem{johnson2007adjusting}
+Johnson, W. E., Li, C., \& Rabinovic, A. "Adjusting batch effects in microarray expression data using empirical Bayes methods." \textit{Biostatistics}, vol. 8, no. 1, pp. 118–127, 2007. \url{https://doi.org/10.1093/biostatistics/kxj037}.
+
+
+\bibitem{fisher1992}
+R. A. Fisher, ``Statistical methods for research workers,'' in \textit{Breakthroughs in Statistics}, S. Kotz and N. L. Johnson, Eds., Springer Series in Statistics. New York, NY: Springer, 1992, pp. 66-70. doi: 10.1007/978-1-4612-4380-9.
+
+\bibitem{benjamini1995controlling}
+Y. Benjamini and Y. Hochberg, ``Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing,'' \textit{Journal of the Royal Statistical Society, Series B: Statistical Methodology}, vol. 57, no. 1, pp. 289--300, 1995.
+
+
+\bibitem{lin2018focal}
+T.-Y. Lin, P. Goyal, R. Girshick, K. He, and P. Dollár, ``Focal Loss for Dense Object Detection,'' \textit{arXiv preprint}, 2018. Available: arXiv:1708.02002.
+
+%% experiment
+
+
+\bibitem{kipf2017semi}
+Kipf, Thomas N., and Max Welling. "Semi-supervised classification with graph convolutional networks." arXiv preprint arXiv:1609.02907 (2017).
+
+
+\bibitem{xu2018powerful}
+K. Xu, W. Hu, J. Leskovec, and S. Jegelka, ``How Powerful are Graph Neural Networks?,'' \textit{ICLR}, 2019.
+
+\bibitem{defferrard2016convolutional}
+M. Defferrard, X. Bresson, and P. Vandergheynst, ``Convolutional Neural Networks on Graphs with Fast Localized Spectral Filtering,'' \textit{Advances in Neural Information Processing Systems}, vol. 29, pp. 3844--3852, 2016.
+
+\bibitem{hamilton2017inductive}
+Hamilton, William L., Rex Ying, and Jure Leskovec. "Inductive representation learning on large graphs." Advances in neural information processing systems 30 (2017).
+
+\bibitem{velickovic2018graph}
+P. Veličković, G. Cucurull, A. Casanova, A. Romero, P. Liò, and Y. Bengio, ``Graph Attention Networks,'' \textit{International Conference on Learning Representations}, 2018. Available: https://openreview.net/forum?id=rJXMpikCZ. [Accepted as poster].
+
+%
+%\bibitem{suehnholz2024clinical}
+%S. P. Suehnholz \textit{et al.}, ``Quantifying the Expanding Landscape of Clinical Actionability for Patients with Cancer,'' \textit{Cancer Discovery}, vol. 14, no. 1, pp. 49–65, Jan. 2024. doi: \url{10.1158/2159-8290.CD-23-0467}. PMID: 37849038; PMCID: PMC10784742.
+
+\bibitem{chakravarty2017oncokb}
+D. Chakravarty \textit{et al.}, ``OncoKB: A Precision Oncology Knowledge Base,'' \textit{JCO Precision Oncology}, vol. 2017, p. PO.17.00011, Jul. 2017. doi: \url{10.1200/PO.17.00011}. PMID: 28890946; PMCID: PMC5586540.
+
+\bibitem{liu2017ongene}
+Y. Liu, J. Sun, and M. Zhao, ``ONGene: A literature-based database for human oncogenes,'' \textit{Journal of Genetics and Genomics}, vol. 44, no. 2, pp. 119–121, Feb. 2017. doi: \url{10.1016/j.jgg.2016.12.004}. PMID: 28162959.
+
+
+\bibitem{ogata1999kegg}
+Ogata H., Goto S., Sato K., Fujibuchi W., Bono H., Kanehisa M. "KEGG: Kyoto Encyclopedia of Genes and Genomes." \textit{Nucleic Acids Research}, vol. 27, no. 1, pp. 29–34, 1999. \url{https://doi.org/10.1093/nar/27.1.29}.
+
+
+\bibitem{zhang2021edgeconv}
+Zheng Zhang, Lei Cui, Jianping Wu. "Exploring an edge convolution and normalization based approach for link prediction in complex networks." \textit{Journal of Network and Computer Applications}, vol. 189, 103113, 2021. \url{https://doi.org/10.1016/j.jnca.2021.103113}.
+
+\bibitem{zhang2024highfreq}
+Zhang Z., Xu H., Zhu G. "Incorporating high-frequency information into edge convolution for link prediction in complex networks." \textit{Scientific Reports}, vol. 14, no. 1, p. 5437, 2024. \url{https://doi.org/10.1038/s41598-024-56144-9}.
+
+\bibitem{Repana2019}
+Repana, D. \textit{et al.} "The network of cancer genes (NCG): a comprehensive catalogue of known and candidate cancer genes from cancer sequencing screens." \textit{Genome Biology}, vol. 20, p. 1, 2019. \url{https://doi.org/10.1186/s13059-019-1701-7}.
+
+
+\bibitem{martinez2020compendium}
+Martínez-Jiménez, F., Muiños, F., Sentís, I., Deu-Pons, J., Reyes-Salazar, I., Arnedo-Pac, C., Mularoni, L., Pich, O., Bonet, J., Kranas, H., Gonzalez-Perez, A., \& Lopez-Bigas, N. "A compendium of mutational cancer driver genes." \textit{Nature Reviews Cancer}, vol. XX, pp. XXX–XXX, 2020. \url{https://doi.org/10.xxxx}.
+
+%% discussion
+
+\bibitem{bell2019principles}
+Bell, C. C. \& Gilan, O. "Principles and mechanisms of non-genetic resistance in cancer." \textit{British Journal of Cancer}, vol. 122, pp. 465–472, 2019. \url{https://doi.org/10.1038}.
+	
+\bibitem{repana2019ncg}
+Repana, D., et al. "The network of cancer genes (NCG): a comprehensive catalogue of known and candidate cancer genes from cancer sequencing screens." \textit{Genome Biology}, vol. 20, p. 1, 2019. \url{https://doi.org/10.1186/s13059-018-1612-0}.
+
+\bibitem{baylin2016epigenetic}
+Baylin, S. B. \& Jones, P. A. "Epigenetic determinants of cancer." \textit{Cold Spring Harbor Perspectives in Biology}, vol. 8, no. 1, p. a019505, 2016. \url{https://doi.org/10.1101/cshperspect.a019505}.
+
+
+
+\end{thebibliography}
+
+	
+	\bibliographystyle{IEEEtran}
+%\bibliography{references}	
+	
+\end{document}

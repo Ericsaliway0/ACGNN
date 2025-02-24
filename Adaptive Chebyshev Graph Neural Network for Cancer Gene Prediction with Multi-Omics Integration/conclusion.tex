@@ -1,0 +1,122 @@
+Many genes exhibit context-dependent functions, being recurrently mutated in some cancers while undergoing epigenetic alterations in others \cite{baylin2016epigenetic,bell2019principles,repana2019ncg}.
+To gain a comprehensive understanding of the cancer landscape, we emphasize the importance of integrating diverse molecular data types into a unified model for accurately predicting cancer genes with distinct characteristics.
+ACGNN provides a scalable and adaptive framework for cancer gene prediction by leveraging Chebyshev polynomials, attention-based receptive fields, and pan-cancer multi-omics data integration. 
+We evaluated the performance of ACGNN  across multiple cancer gene sets and PPI networks, comparing it with other established methods. While no single method consistently outperformed the others across all scenarios, ACGNN  trained on pan-cancer data demonstrated, on average, superior AUPRC values. 
+
+While ACGNN  demonstrated stable performance across various cancer gene datasets, the performance of cancer driver gene prediction was highly dependent on the dataset used. This variability likely reflects the differing biases inherent in the collection of these cancer gene sets. For instance, the PPIs from STRING includes functional associations (e.g., co-expression or shared pathways) that do not necessarily indicate direct physical interactions between proteins. 
+
+The ACGNN  framework is highly versatile, capable of integrating various types of omics data and networks beyond those utilized here. This flexibility allows its application beyond the field of cancer genomics, enabling the study of other complex diseases where multi-omics data are available, and functional gene connections play a critical role in classifying disease-related genes. Our future work will explore hybrid models combining ChebNet with Transformers.
+
+
+
+\begin{table*}[h]
+	\centering
+	\renewcommand{\arraystretch}{1.1} % Slightly reduce row height
+	\setlength{\tabcolsep}{3pt} % Reduce column spacing
+	\small % Reduce font size
+	\begin{tabular}{c l ccc ccc  c l ccc ccc}
+		\toprule
+		\multirow{2}{*}{\textbf{Cancer}} & \multirow{2}{*}{\textbf{Method}} & 
+		\multicolumn{3}{c}{\textbf{AUROC}} & \multicolumn{3}{c}{\textbf{AUPRC}} &
+		\multirow{2}{*}{\textbf{Cancer}} & \multirow{2}{*}{\textbf{Method}} & 
+		\multicolumn{3}{c}{\textbf{AUROC}} & \multicolumn{3}{c}{\textbf{AUPRC}} \\
+		\cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){11-13} \cmidrule(lr){14-16}
+		& & \textbf{Bio} & \textbf{Topo} & \textbf{Comb} & \textbf{Bio} & \textbf{Topo} & \textbf{Comb} & 
+		& & \textbf{Bio} & \textbf{Topo} & \textbf{Comb} & \textbf{Bio} & \textbf{Topo} & \textbf{Comb} \\
+		\midrule
+		% Left Group
+		\multirow{4}{*}{BLCA} & HGDC & 0.7371 & 0.7130 & 0.7240 & 0.7957 & 0.7382 & 0.7837  & 
+		\multirow{4}{*}{LIHC} & HGDC & 0.6939 & 0.6463 & 0.6724 & 0.7632 & 0.7037 & 0.7465 \\
+		& EMOGI & 0.6335 & 0.7404 & 0.7698 & 0.6812 & 0.7903 & 0.8011  & 
+		& EMOGI & 0.7215 & 0.7263 & 0.7136 & 0.7595 & 0.7866 & 0.7929 \\
+		& MTGCN & 0.7491 & 0.6800 & 0.7525 & 0.8180 & 0.7677 & 0.8174 &  
+		& MTGCN & 0.7235& 0.7022 & 0.8819 & 0.8110 & 0.7824 & 0.8523 \\
+		& ACGNN & \textbf{0.8585} & \textbf{0.8507} & \textbf{0.9644} & \textbf{0.9079} & \textbf{0.9014} & \textbf{0.9766} & 
+		& ACGNN & \textbf{0.9073} & \textbf{0.8513} & \textbf{0.9704} & \textbf{0.9391} & \textbf{0.9022} & \textbf{0.9809} \\
+		\midrule
+		% Add remaining cancers similarly in both columns
+		\multirow{4}{*}{BRCA} & HGDC & 0.6406 & 0.5941 & 0.6980 & 0.7023& 0.6205 & 0.7249  & 
+		\multirow{4}{*}{LUAD} & HGDC & 0.7260 & 0.6777 & 0.7149 & 0.7692 & 0.7297 & 0.7620 \\
+		& EMOGI & 0.7539 & 0.7181 & 0.7127 & 0.8252 & 0.7816 & 0.7592  & 
+		& EMOGI & 0.7351 & 0.7230& 0.7512 & 0.7825 & 0.7685 & 0.8196 \\
+		& MTGCN & 0.7095 & 0.7145& 0.6853 & 0.7876 & 0.7906& 0.7705 & 
+		& MTGCN & 0.6916 & 0.6918 & 0.7127 & 0.7828& 0.7724 & 0.7967 \\
+		& ACGNN & \textbf{0.9017} & \textbf{0.8105} & \textbf{0.9287} & \textbf{0.9359} & \textbf{0.8714} & \textbf{0.9533} & 
+		& ACGNN & \textbf{0.9384} & \textbf{0.8068} & \textbf{0.9026} & \textbf{0.9590} & \textbf{0.8704} & \textbf{0.9337} \\
+		
+		\midrule
+		% Left Group
+		\multirow{4}{*}{CESC} & HGDC & 0.6031 & 0.6635 & 0.7071 & 0.6765 & 0.7085 & 0.7663  & 
+		\multirow{4}{*}{LUSC} & HGDC & 0.7030 & 0.6497 & 0.6589 & 0.7372 & 0.7119 & 0.6921 \\
+		& EMOGI & 0.7592 & 0.7393 & 0.7196 & 0.8226 & 0.7823 & 0.7792 & 
+		& EMOGI & 0.7761 & 0.6713 & 0.6724 & 0.8320 & 0.7278 & 0.7203 \\
+		& MTGCN & 0.7272& 0.6969 & 0.7182 & 0.8060 & 0.7801 & 0.7984  & 
+		& MTGCN & 0.7337& 0.6976 & 0.7010 & 0.8048 & 0.7824 & 0.7826 \\
+		& ACGNN  & \textbf{0.9636}  & \textbf{0.7343}  & \textbf{0.9760}  & \textbf{0.9749}  & \textbf{0.8214}  & \textbf{0.9871}  & 
+		& ACGNN  & \textbf{0.9569}  & \textbf{0.7995}  & \textbf{0.9282}  & \textbf{0.9716}  & \textbf{0.8666}  & \textbf{0.9510}  \\
+		\midrule
+		% Add remaining cancers similarly in both columns
+		\multirow{4}{*}{COAD} & HGDC & 0.7364 & 0.6693 & 0.6849 & 0.7989 & 0.7205 & 0.7249 & 
+		\multirow{4}{*}{PRAD} & HGDC & 0.7499 & 0.6984 & 0.7512 & 0.7840 & 0.7452 & 0.8134 \\
+		& EMOGI & 0.6961 & 0.7492 & 0.7229 & 0.7260 & 0.7820 & 0.7751  & 
+		& EMOGI & 0.7227 & 0.6942& 0.7495 & 0.7760 & 0.7404 & 0.7903 \\
+		& MTGCN & 0.7458 & 0.7073 & 0.7400 & 0.8167 & 0.7886 & 0.8088  & 
+		& MTGCN & 0.7441 & 0.6984 & 0.7023& 0.8140 & 0.7786 & 0.7858 \\
+		& ACGNN  & \textbf{0.8672}  & \textbf{0.8467}  & \textbf{0.9376}  & \textbf{0.9034}  & \textbf{0.8990}  & \textbf{0.9565} & 
+		& ACGNN  & \textbf{0.9108}  & \textbf{0.8073}  & \textbf{0.9466}  & \textbf{0.9423}  & \textbf{0.8675}  & \textbf{0.9654}  \\
+		
+		\midrule
+		% Left Group
+		\multirow{4}{*}{ESCA} & HGDC & 0.6980 & 0.6656 & 0.7482 & 0.7359 & 0.6874 & 0.8006  & 
+		\multirow{4}{*}{READ} & HGDC & 0.7362 & 0.6040 & 0.6933 & 0.7753 & 0.6441 & 0.7448 \\
+		& EMOGI & 0.7600 & 0.7627 & 0.7745 & 0.7939 & 0.8219 & 0.8208  & 
+		& EMOGI & 0.7984 & 0.7276 & 0.7755 & 0.8451 & 0.7775 & 0.8199 \\
+		& MTGCN & 0.7303 & 0.7000 & 0.7266& 0.7966 & 0.7807 & 0.7935 & 
+		& MTGCN & 0.7215 & 0.6814 & 0.6934 & 0.8013 & 0.7740& 0.7828 \\
+		& ACGNN  & \textbf{0.9490}  & \textbf{0.8005}  & \textbf{0.9757}  & \textbf{0.9672}  & \textbf{0.8640}  & \textbf{0.9845}  & 
+		& ACGNN  & \textbf{0.9439}  & \textbf{0.8173}  & \textbf{0.9773}  & \textbf{0.9607}  & \textbf{0.8692}  & \textbf{0.9846}  \\
+		\midrule
+		% Add remaining cancers similarly in both columns
+		\multirow{4}{*}{HNSC} & HGDC & 0.7067 & 0.7301 & 0.7404 & 0.7307 & 0.8105 & 0.7872  & 
+		\multirow{4}{*}{STAD} & HGDC & 0.6896 & 0.6036 & 0.8673 & 0.7381 & 0.6569 & 0.7058 \\
+		& EMOGI & 0.7131 & 0.7662 & 0.7073 & 07699 & 0.8272 & 0.7384  & 
+		& EMOGI & 0.7557 & 0.7144 & 0.7545 & 0.8453& 0.7577 & 0.7881 \\
+		& MTGCN & 0.7197 & 0.7045 & 0.7322 & 0.7937& 0.7803 & 0.7981 & 
+		& MTGCN & 0.7305 & 0.7182 & 0.7110 & 0.8080 & 0.7940 & 0.7908 \\
+		& ACGNN  & \textbf{0.9468}  & \textbf{0.8300}  & \textbf{0.9209}  & \textbf{0.9643}  & \textbf{0.8866}  & \textbf{0.9502}  & 
+		& ACGNN  & \textbf{0.9439}  & \textbf{0.8042}  & \textbf{0.9560}  & \textbf{0.9628}  & \textbf{0.8719}  & \textbf{0.9721}  \\
+		
+		\midrule
+		% Left Group
+		\multirow{4}{*}{KIRC} & HGDC & 0.6861 & 0.6279 & 0.7195 & 0.7458 & 0.67973 & 0.7802  & 
+		\multirow{4}{*}{THCA} & HGDC & 0.7152 & 0.6249 & 0.6734 & 0.7731 & 0.6916 & 0.7038 \\
+		& EMOGI & 0.7285 & 0.6366 & 0.7480 & 0.7768 & 0.6995 & 0.7662 & 
+		& EMOGI & 0.7226 & 0.7165 & 0.7519 & 0.7690 & 0.7739 & 0.8019 \\
+		& MTGCN & 0.7260 & 0.7167 & 0.7159 & 0.8048 & 0.7924 & 0.7906  & 
+		& MTGCN & 0.6751 & 0.7038 & 0.7410 & 0.7667 & 7865& 0.8083 \\
+		& ACGNN  & \textbf{0.8862}  & \textbf{0.8643}  & \textbf{0.9617}  & \textbf{0.9212}  & \textbf{0.9073}  & \textbf{0.9739} & 
+		& ACGNN  & \textbf{0.8550}  & \textbf{0.8312}  & \textbf{0.9088}  & \textbf{0.9011}  & \textbf{0.8832}  & \textbf{0.9416}  \\
+		\midrule
+		% Add remaining cancers similarly in both columns
+		\multirow{4}{*}{KIRP} & HGDC & 0.6949 & 0.6895 & 0.6944 & 0.7416 & 0.7289 & 0.7477  & 
+		\multirow{4}{*}{UCEC} & HGDC & 0.6596 & 0.6302 & 0.7559 & 0.7181 & 0.6734 & 0.8011 \\
+		& EMOGI & 0.8170 & 0.6623 & 0.7000 & 0.8631 & 0.7056 & 0.7387  & 
+		& EMOGI & 0.8164 & 0.7696 & 0.7917 & 0.8718 & 0.8144 & 0.8434 \\
+		& MTGCN & 0.7023 & 0.7002 & 0.7227 & 0.7830 & 0.7829 & 0.7948  & 
+		& MTGCN & 0.7371 & 0.7139 & 0.6608 & 0.8202 & 0.7924 & 0.7483 \\
+		& ACGNN  & \textbf{0.8667}  & \textbf{0.7986}  & \textbf{0.9168}  & \textbf{0.9110}  & \textbf{0.8684}  & \textbf{0.9403}  & 
+		& ACGNN & \textbf{0.9567} & \textbf{0.8029} & \textbf{0.9852} & \textbf{0.9718} & \textbf{0.8661} & \textbf{0.9902} \\
+		
+		% Continue filling remaining 6 types on each side similarly
+		\bottomrule
+	\end{tabular}
+	\caption{Performance comparison on cancer type-specific driver gene prediction on CPDB network. 
+		\textbf{Bio}: Biological features-based model. 
+		\textbf{Topo}: Topological network features-based model. 
+		\textbf{Comb}: Combined biological and topological features.}
+	\label{tab:cancer_results}
+\end{table*}
+
+
+ 
+% \vspace{5cm} 

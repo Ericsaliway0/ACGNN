@@ -1,0 +1,7 @@
+
+The rapid expansion of high-throughput molecular data introduces substantial computational challenges in identifying cancer driver genes. Since tumorigenesis is driven by both genetic and non-genetic factors, there is a critical need for predictive models that can integrate diverse data sources while remaining interpretable.
+We present ACGNN,  a framework designed to predict cancer genes by integrating diverse data modalities, including PPI networks and pan-cancer multi-omics data, into a unified predictive model. It leverages graph convolutional networks (GCNs) to generate low-dimensional embeddings, which are further refined using adaptive Chebyshev graph neural networks for more precise driver gene identification. ACGNN dynamically adjusts the receptive field, allowing for more flexible and effective feature aggregation.
+Our method achieves a 25.86\% average improvement in AUPRC over state-of-the-art methods, effectively identifying both well-established and novel cancer driver genes. We believe our method introduces a new approach with the ability to capture biologically relevant features, providing valuable insights for cancer research and precision medicine.
+
+%%P values were derived using a two-sided Mann–Whittney U-test~\cite{icgc2020pan}.
+

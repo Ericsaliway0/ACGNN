@@ -3,11 +3,12 @@ import json
 import os
 
 # File paths
-source_csv_path = 'gat/data/multiomics_meth/cpdb_omics_ppi_embeddings_2048.csv'
-target_csv_path = 'gat/data/multiomics_meth/cpdb_omics_ppi_embeddings_2048.csv'
-relation_csv_path = 'gat/data/CPDB_ppi_0.99_with_gene_type_and_connected_driver_gene.csv'
-output_json_path = 'gat/data/multiomics_meth/cpdb_omics_ppi_embeddings_2048.json'
-csv_file_path = 'gat/data/multiomics_meth/cpdb_omics_ppi_embeddings_2048.csv'
+source_csv_path = 'gat/data/multiomics_meth/ppi_embeddings_lr0.001_dim1024_lay2_epo10_final.csv'
+target_csv_path = 'gat/data/multiomics_meth/ppi_embeddings_lr0.001_dim1024_lay2_epo10_final.csv'
+relation_csv_path = 'gat/data/STRING_ppi_950_with_gene_type_and_connected_driver_gene.csv'
+###relation_csv_path = 'gat/data/HIPPIE_high_confidence_human_with_gene_type_and_connected_driver_gene.csv'
+output_json_path = 'gat/data/multiomics_meth/STRING_omics_ppi_embeddings_1024.json'
+csv_file_path = 'gat/data/multiomics_meth/STRING_omics_ppi_embeddings_1024.csv'
 
 # Interaction types and corresponding labels
 interaction_labels = {
@@ -25,7 +26,7 @@ if not os.path.isfile(csv_file_path):
         writer.writeheader()
 
 # Function to read embeddings from a CSV file
-def read_embeddings(file_path):
+def read_embeddings_x(file_path):
     embeddings = {}
     with open(file_path, newline='') as csvfile:
         reader = csv.reader(csvfile)
@@ -33,8 +34,22 @@ def read_embeddings(file_path):
         for row in reader:
             name = row[0]
             embedding = list(map(float, row[1:]))
-            print(embedding)
+            ##print(embedding)
             embeddings[name] = embedding
+    return embeddings
+
+def read_embeddings(file_path):
+    embeddings = {}
+    with open(file_path, newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        headers = next(reader)  # Skip the header
+        for row in reader:
+            name = row[0]
+            try:
+                embedding = [float(x) if x.strip() else 0.0 for x in row[1:]]  # Convert empty to 0.0
+                embeddings[name] = embedding
+            except ValueError:
+                print(f"Skipping invalid row: {row}")
     return embeddings
 
 # Read source and target embeddings

@@ -1,0 +1,23 @@
+\IEEEPARstart{C}{ancer} is a genetic disease caused by the accumulation of mutations, but only a small subset of mutated genes—known as driver genes—actively contribute to tumor development~\cite{dees2012music,vogelstein2013cancer,leiserson2015pan,weinstein2013tcga,bashashati2012drivernet}. Identifying these driver genes with high accuracy is essential for understanding cancer pathogenesis and developing targeted therapies~\cite{alexandrov2013signatures,lawrence2013mutational,hou2014dawnrank}. Significant efforts, such as the Network of Cancer Genes (NCG) \cite{repana2019network} and the COSMIC Cancer Gene Census (CGC) \cite{sondka2018cosmic}, have been made to annotate cancer genes based on mutation data.
+
+Existing driver gene prediction methods primarily analyze patient groups within specific cancer types, leveraging gene expression and mutation data. These approaches are mainly categorized into mutation frequency-based methods \cite{tamborero2013oncodriveclust,gillman2023identifying} and network-based methods \cite{song2019identifying,peng2021identifying,peng2022improving}. Mutation frequency-based models rank genes by how significantly their mutation rates deviate from background expectations, while network-based methods incorporate pathway and gene interaction data \cite{song2020entropy,zhang2022dgmp}. However, the reliability of network-based methods is often compromised by incomplete or noisy biological interactions \cite{cheng2016advances}. Additionally, many existing approaches rely on omics data for gene representation learning while overlooking the structural information inherent in biomolecular networks \cite{collier2019lotus,yi2021graphrepresentation}. Methods that incorporate handcrafted network-based features often fail to capture the complex, non-linear structures of these networks, leading to suboptimal performance in driver gene identification \cite{mourikis2019cancer,nulsen2021pancancer}.
+
+Graph Neural Networks (GNNs) \cite{scarselli2009graph} have shown promise in bioinformatics tasks, particularly in association prediction \cite{liu2022conversational,peng2022drugresponse,peng2022cancerdrugresponse}. Cancer gene prediction requires models that effectively integrate diverse biological networks and omics data. Traditional Graph Neural Networks (GNNs), such as Graph Convolutional Networks (GCNs), rely on fixed-order convolutions, limiting their adaptability to varying graph structures. To overcome these limitations, we propose Adaptive Chebyshev Graph Neural Network (ACGNN), a novel approach that dynamically adjusts receptive fields using Chebyshev polynomial approximations.
+Given the crucial role of gene feature interactions in refining node representations \cite{albu2022approach}, ACGNN efficiently propagates information while capturing multi-scale topological dependencies. By leveraging Chebyshev polynomials, it flexibly adjusts the receptive field, enabling more effective feature aggregation and higher-order neighborhood learning. 
+Our key contributions can be summarized as follows:  
+\begin{itemize}  
+	\item We propose an ACGNN approach to identify cancer genes by integrating multiple PPI networks and multi-omics data, generating biologically meaningful gene representations using pretrained node embeddings from biomolecular networks.  
+	\item We employ adaptive Chebyshev graph convolution with residual connections to enhance feature propagation, addressing challenges posed by deep networks and noisy data.  
+	\item We leverage pretrained embeddings to improve model generalization, reducing dependence on large annotated datasets and ensuring more robust identification of cancer driver genes.  
+	\item ACGNN introduces an adaptive mechanism that dynamically tunes the polynomial order, improving expressiveness and robustness in multi-omics cancer gene prediction.  
+\end{itemize}
+
+
+
+
+%%The structure of this paper is organized as follows. Section~\ref{sec:relatedwork} offers a review of related work. The proposed methodology is detailed in Section~\ref{sec:methods}. Section~\ref{sec:experiment} presents the results of the experiments conducted. Finally, Section~\ref{sec:conclusion} provides the concluding remarks.
+
+%\vspace{0.5cm} 
+
+
+
