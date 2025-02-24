@@ -90,34 +90,32 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Gene Embeddings Clustering}{6}{subsection.4.3}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Comparison of models in CPU/GPU usage and time cost per epoch on the different PPI networks: CPDB, STRING, and HIPPIE.\relax }}{7}{table.caption.4}\protected@file@percent }
 \newlabel{tab:consume_gpu}{{III}{7}{Comparison of models in CPU/GPU usage and time cost per epoch on the different PPI networks: CPDB, STRING, and HIPPIE.\relax }{table.caption.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Performance comparison of different methods across three biological networks: CPDB (pathway-based network), STRING (protein-protein interaction network), and HIPPIE (high-confidence protein interaction network). The table presents AUROC (Area Under the Receiver Operating Characteristic Curve) and AUPRC (Area Under the Precision-Recall Curve) for each method. ACGNN achieves the highest performance across all datasets, particularly excelling in CPDB and STRING. Chebnet also performs strongly, especially in STRING and HIPPIE. In contrast, GIN and GraphSAGE tend to underperform across multiple datasets, indicating their limitations in certain network structures.\relax }}{7}{table.caption.5}\protected@file@percent }
-\newlabel{tab:roc_pr}{{IV}{7}{Performance comparison of different methods across three biological networks: CPDB (pathway-based network), STRING (protein-protein interaction network), and HIPPIE (high-confidence protein interaction network). The table presents AUROC (Area Under the Receiver Operating Characteristic Curve) and AUPRC (Area Under the Precision-Recall Curve) for each method. ACGNN achieves the highest performance across all datasets, particularly excelling in CPDB and STRING. Chebnet also performs strongly, especially in STRING and HIPPIE. In contrast, GIN and GraphSAGE tend to underperform across multiple datasets, indicating their limitations in certain network structures.\relax }{table.caption.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Performance comparison of different methods across three biological networks: CPDB (pathway-based network), STRING (protein-protein interaction network), and HIPPIE (high-confidence protein interaction network).\relax }}{7}{table.caption.5}\protected@file@percent }
+\newlabel{tab:roc_pr}{{IV}{7}{Performance comparison of different methods across three biological networks: CPDB (pathway-based network), STRING (protein-protein interaction network), and HIPPIE (high-confidence protein interaction network).\relax }{table.caption.5}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {V}{\ignorespaces The ablation experimental results of the different networks.\relax }}{7}{table.caption.6}\protected@file@percent }
 \newlabel{tab:roc_pr_ablate}{{V}{7}{The ablation experimental results of the different networks.\relax }{table.caption.6}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Demonstration of pretrained node embeddings with a dimension of 300 for clustering genes into k=30 clusters.\relax }}{7}{figure.caption.7}\protected@file@percent }
 \newlabel{fig:heatmap_clustering}{{2}{7}{Demonstration of pretrained node embeddings with a dimension of 300 for clustering genes into k=30 clusters.\relax }{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Performance on Driver Gene Prediction}{7}{subsection.4.4}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The interaction distributions of Predicted Cancer Genes (PCGs) with Known Cancer Genes (KCGs) across three different protein-protein interaction (PPI) networks: CPDB, STRING, and HIPPIE.\relax }}{8}{figure.caption.8}\protected@file@percent }
 \newlabel{fig:degree}{{3}{8}{The interaction distributions of Predicted Cancer Genes (PCGs) with Known Cancer Genes (KCGs) across three different protein-protein interaction (PPI) networks: CPDB, STRING, and HIPPIE.\relax }{figure.caption.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Performance on Driver Gene Prediction}{8}{subsection.4.4}\protected@file@percent }
-\citation{chakravarty2017oncokb}
-\citation{liu2017ongene}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Kernel Density Estimation (KDE) plot illustrating the distribution of interaction degrees for predicted driver genes and other genes. The x-axis represents the inteaction degree, and the y-axis represents the density.\relax }}{9}{figure.caption.9}\protected@file@percent }
 \newlabel{fig:kde_plot}{{4}{9}{Kernel Density Estimation (KDE) plot illustrating the distribution of interaction degrees for predicted driver genes and other genes. The x-axis represents the inteaction degree, and the y-axis represents the density.\relax }{figure.caption.9}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Average predicted scores for different networks and gene types. The bar plot displays the scaled predicted scores for canonical driver genes, potential driver genes, nondriver genes, and the rest of the genes across three biological networks: CPDB, STRING, and HIPPIE. Error bars represent the scaled standard errors of the mean (SEM). The statistical significance (p-values) for comparisons between gene categories within each network is annotated above the bars. Numbers above the brackets represent the p-values of the Spearman Rank Correlation Test, indicating the significance of differences between groups.\relax }}{9}{figure.caption.10}\protected@file@percent }
 \newlabel{fig:predicted_scores}{{5}{9}{Average predicted scores for different networks and gene types. The bar plot displays the scaled predicted scores for canonical driver genes, potential driver genes, nondriver genes, and the rest of the genes across three biological networks: CPDB, STRING, and HIPPIE. Error bars represent the scaled standard errors of the mean (SEM). The statistical significance (p-values) for comparisons between gene categories within each network is annotated above the bars. Numbers above the brackets represent the p-values of the Spearman Rank Correlation Test, indicating the significance of differences between groups.\relax }{figure.caption.10}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces  Performance comparison of graph-based models across different biological networks. The scatter plot shows the area under the receiver operating characteristic curve (AUROC) on the x-axis and the area under the precision-recall curve (AUPRC) on the y-axis for various models. The large circles represent the mean AUC values across biomolecular networks for each method. \relax }}{9}{figure.caption.11}\protected@file@percent }
 \newlabel{fig:auroc_auprc_comparison}{{6}{9}{Performance comparison of graph-based models across different biological networks. The scatter plot shows the area under the receiver operating characteristic curve (AUROC) on the x-axis and the area under the precision-recall curve (AUPRC) on the y-axis for various models. The large circles represent the mean AUC values across biomolecular networks for each method. \relax }{figure.caption.11}{}}
+\citation{chakravarty2017oncokb}
+\citation{liu2017ongene}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Performance comparisons of different methods on biomolecular networks. Results of all methods were evaluated on two independent test sets derived from the OncoKB and ONGene databases, respectively. The large circles represent the mean AUPRC values across biomolecular networks for each method.\relax }}{10}{figure.caption.12}\protected@file@percent }
 \newlabel{fig11}{{7}{10}{Performance comparisons of different methods on biomolecular networks. Results of all methods were evaluated on two independent test sets derived from the OncoKB and ONGene databases, respectively. The large circles represent the mean AUPRC values across biomolecular networks for each method.\relax }{figure.caption.12}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-E}}Performance on OncoKB and ONGene}{10}{subsection.4.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-F}}Feature Ablation Experiment}{10}{subsection.4.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-G}}Evaluation of Cancer Type-Specific Driver Gene Prediction}{10}{subsection.4.7}\protected@file@percent }
 \citation{Repana2019}
 \citation{martinez2020compendium}
-\citation{baylin2016epigenetic,bell2019principles,repana2019ncg}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-G}}Evaluation of Cancer Type-Specific Driver Gene Prediction}{11}{subsection.4.7}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-H}}Prediction of Novel Cancer Driver Genes}{11}{subsection.4.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {V}Discussion and Conclusions}{11}{section.5}\protected@file@percent }
-\newlabel{sec:conclusion}{{V}{11}{Discussion and Conclusions}{section.5}{}}
+\citation{baylin2016epigenetic,bell2019principles,repana2019ncg}
 \bibcite{dees2012music}{1}
 \bibcite{vogelstein2013cancer}{2}
 \bibcite{leiserson2015pan}{3}
@@ -131,13 +129,13 @@
 \bibcite{tamborero2013oncodriveclust}{11}
 \bibcite{gillman2023identifying}{12}
 \bibcite{song2019identifying}{13}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Discussion and Conclusions}{12}{section.5}\protected@file@percent }
+\newlabel{sec:conclusion}{{V}{12}{Discussion and Conclusions}{section.5}{}}
+\newlabel{sec:acknowledgement}{{V}{12}{Acknowledgements}{section*.15}{}}
+\@writefile{toc}{\contentsline {section}{References}{12}{section*.16}\protected@file@percent }
 \bibcite{peng2021identifying}{14}
 \bibcite{peng2022improving}{15}
 \bibcite{song2020entropy}{16}
-\@writefile{lot}{\contentsline {table}{\numberline {VI}{\ignorespaces The top 60 predicted driver genes along with their confirmed sources, with unconfirmed genes left blank. Among these, 71.67\% of the novel genes have at least one supporting piece of evidence indicating their potential as cancer drivers. In total, 43 out of 60 genes are confirmed.\relax }}{12}{table.caption.13}\protected@file@percent }
-\newlabel{table:gene_sources}{{VI}{12}{The top 60 predicted driver genes along with their confirmed sources, with unconfirmed genes left blank. Among these, 71.67\% of the novel genes have at least one supporting piece of evidence indicating their potential as cancer drivers. In total, 43 out of 60 genes are confirmed.\relax }{table.caption.13}{}}
-\newlabel{sec:acknowledgement}{{V}{12}{Acknowledgements}{section*.15}{}}
-\@writefile{toc}{\contentsline {section}{References}{12}{section*.16}\protected@file@percent }
 \bibcite{zhang2022dgmp}{17}
 \bibcite{cheng2016advances}{18}
 \bibcite{collier2019lotus}{19}
@@ -150,6 +148,8 @@
 \bibcite{peng2022cancerdrugresponse}{26}
 \bibcite{albu2022approach}{27}
 \bibcite{chatzianastasis2023emgnn}{28}
+\@writefile{lot}{\contentsline {table}{\numberline {VI}{\ignorespaces The top 60 predicted driver genes along with their confirmed sources, with unconfirmed genes left blank. Among these, 71.67\% of the novel genes have at least one supporting piece of evidence indicating their potential as cancer drivers. In total, 43 out of 60 genes are confirmed.\relax }}{13}{table.caption.13}\protected@file@percent }
+\newlabel{table:gene_sources}{{VI}{13}{The top 60 predicted driver genes along with their confirmed sources, with unconfirmed genes left blank. Among these, 71.67\% of the novel genes have at least one supporting piece of evidence indicating their potential as cancer drivers. In total, 43 out of 60 genes are confirmed.\relax }{table.caption.13}{}}
 \bibcite{li2024multimodalgnn}{29}
 \bibcite{li2023cgmega}{30}
 \bibcite{peng2022cancerdriver}{31}
@@ -197,6 +197,6 @@
 \bibcite{repana2019ncg}{73}
 \bibcite{baylin2016epigenetic}{74}
 \bibstyle{IEEEtran}
-\@writefile{lot}{\contentsline {table}{\numberline {VII}{\ignorespaces Performance comparison on cancer type-specific driver gene prediction on CPDB network. \textbf  {Bio}: Biological features-based model. \textbf  {Topo}: Topological network features-based model. \textbf  {Comb}: Combined biological and topological features.\relax }}{15}{table.caption.14}\protected@file@percent }
-\newlabel{tab:cancer_results}{{VII}{15}{Performance comparison on cancer type-specific driver gene prediction on CPDB network. \textbf {Bio}: Biological features-based model. \textbf {Topo}: Topological network features-based model. \textbf {Comb}: Combined biological and topological features.\relax }{table.caption.14}{}}
-\gdef \@abspage@last{15}
+\@writefile{lot}{\contentsline {table}{\numberline {VII}{\ignorespaces Performance comparison on cancer type-specific driver gene prediction on CPDB network. \textbf  {Bio}: Biological features-based model. \textbf  {Topo}: Topological network features-based model. \textbf  {Comb}: Combined biological and topological features.\relax }}{16}{table.caption.14}\protected@file@percent }
+\newlabel{tab:cancer_results}{{VII}{16}{Performance comparison on cancer type-specific driver gene prediction on CPDB network. \textbf {Bio}: Biological features-based model. \textbf {Topo}: Topological network features-based model. \textbf {Comb}: Combined biological and topological features.\relax }{table.caption.14}{}}
+\gdef \@abspage@last{16}

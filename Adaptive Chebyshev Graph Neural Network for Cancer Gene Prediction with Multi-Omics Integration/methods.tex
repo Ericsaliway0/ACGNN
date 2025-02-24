@@ -245,7 +245,7 @@ where \( y \) is the ground truth label, \( h \) is the predicted probability af
 		Chebnet & 0.8017 & 0.8622 & 0.8777 & 0.9159 & 0.7409 & 0.8443 \\
 		\bottomrule
 	\end{tabular}
-	\caption{Performance comparison of different methods across three biological networks: CPDB (pathway-based network), STRING (protein-protein interaction network), and HIPPIE (high-confidence protein interaction network). The table presents AUROC (Area Under the Receiver Operating Characteristic Curve) and AUPRC (Area Under the Precision-Recall Curve) for each method. ACGNN achieves the highest performance across all datasets, particularly excelling in CPDB and STRING. Chebnet also performs strongly, especially in STRING and HIPPIE. In contrast, GIN and GraphSAGE tend to underperform across multiple datasets, indicating their limitations in certain network structures.}
+	\caption{Performance comparison of different methods across three biological networks: CPDB (pathway-based network), STRING (protein-protein interaction network), and HIPPIE (high-confidence protein interaction network).}
 	\label{tab:roc_pr}
 \end{table}
 
@@ -261,8 +261,8 @@ where \( y \) is the ground truth label, \( h \) is the predicted probability af
 		& \textbf{AUROC} & \textbf{AUPRC} & \textbf{AUROC} & \textbf{AUPRC} & \textbf{AUROC} & \textbf{AUPRC} \\
 		\midrule
 		ACGNN & 0.9652 & 0.9783 & 0.9578 & 0.9738 & 0.9297 & 0.9597 \\
-		AC256x1 & 0.9382& 0.9610 & 0.9413 & 0.9630 & 0.9112 & 0.9378 \\
-		AC256x2 & 0.9315& 0.9527 & 0.9054 & 0.9464 & 0.8551 & 0.9129 \\
+		AC256x1 & 0.9315& 0.9527 & 0.9054 & 0.9464 & 0.8551 & 0.9129 \\
+		AC256x2 & 0.9382& 0.9610 & 0.9413 & 0.9630 & 0.9112 & 0.9378 \\
 		AC256x4 & 0.9495& 0.9657 & 0.9489 & 0.9634 & 0.8934 & 0.9388 \\
 		AC1024x1 & 0.8481 & 0.9045 & 0.8653 & 0.9182 & 0.9288 & 0.9504 \\
 		\bottomrule

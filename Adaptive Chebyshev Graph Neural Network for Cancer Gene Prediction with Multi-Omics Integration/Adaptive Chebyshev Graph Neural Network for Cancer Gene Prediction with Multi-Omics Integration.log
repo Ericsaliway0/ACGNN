@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.15)  23 FEB 2025 14:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.15)  24 FEB 2025 02:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1138,19 +1138,19 @@ File: images/__comp_oncokb_ongene_acgnn.png Graphic file (type png)
 Package pdftex.def Info: images/__comp_oncokb_ongene_acgnn.png  used on input l
 ine 95.
 (pdftex.def)             Requested size: 232.19843pt x 200.24986pt.
-
+[7 <./images/KIRP_embeddings_matrix_stId_head2_dim16_lay2_epo100_.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [7 <./images/KIRP_embeddings_matrix_stId_head2_dim16_lay2_epo100_.png>]
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [8 <./images/__ACGNN_CPDB_degree_distributions_epo103_2048.png> <./images/__AC
 GNN_STRING_degree_distributions_epo103_2048.png> <./images/__ACGNN_HIPPIE_degre
 e_distributions_epo103_2048.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 3919) has occurred while \output is active []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 4144) has occurred while \output is active []
 
  [9 <./images/CPDB_kde_plot_epo101_2048.png> <./images/STRING_kde_plot_epo101_2
 048.png> <./images/HIPPIE_kde_plot_epo101_2048.png> <./images/average_predicted
@@ -1161,6 +1161,7 @@ Underfull \hbox (badness 1635) in paragraph at lines 148--151
 ures
  []
 
+[11]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -1173,9 +1174,6 @@ Overfull \hbox (2.4772pt too wide) in paragraph at lines 17--116
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 ) (./acknowledgement.tex)
-Underfull \vbox (badness 1248) has occurred while \output is active []
-
- [11]
 Underfull \hbox (badness 2119) in paragraph at lines 177--178
 []\OT1/ptm/m/n/8 D. Tam-borero, A. Gonzalez-Perez, and N. Lopez-Bigas, ``Onco-
  []
@@ -1186,10 +1184,10 @@ Underfull \hbox (badness 1502) in paragraph at lines 214--215
 IEEE Trans-ac-tions
  []
 
-
+[13]
 Underfull \vbox (badness 1199) has occurred while \output is active []
 
- [13]
+
 Underfull \hbox (badness 3590) in paragraph at lines 315--316
 []\OT1/ptm/m/n/8 Khurana, E., Fu, Y., Chen, J., and Ger-stein, M. (2013). In-
  []
@@ -1206,7 +1204,7 @@ Underfull \hbox (badness 5970) in paragraph at lines 315--316
 OT1/ptm/m/n/8 , 9(3), e1002886.
  []
 
-
+[14]
 Underfull \hbox (badness 3209) in paragraph at lines 361--362
 []\OT1/ptm/m/n/8 P. Veli[]ckovi[]c, G. Cu-cu-rull, A. Casanova, A. Romero, P. L
 i[]o,
@@ -1235,7 +1233,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[14] [15]
+[15] [16]
 (./Adaptive Chebyshev Graph Neural Network for Cancer Gene Prediction with Mult
 i-Omics Integration.aux)
 Package rerunfilecheck Info: File `"Adaptive Chebyshev Graph Neural Network for
@@ -1243,9 +1241,9 @@ Package rerunfilecheck Info: File `"Adaptive Chebyshev Graph Neural Network for
 (rerunfilecheck)             Checksum: F7794694BB05BC9E938A72BDB1DB2749;3915.
  ) 
 Here is how much of TeX's memory you used:
- 25102 strings out of 476025
- 485251 string characters out of 5790017
- 1906388 words of memory out of 5000000
+ 25103 strings out of 476025
+ 485258 string characters out of 5790017
+ 1905388 words of memory out of 5000000
  44944 multiletter control sequences out of 15000+600000
  567455 words of font info for 139 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1266,10 +1264,10 @@ texlive/2023/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/20
 dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts
 /type1/urw/times/utmri8a.pfb>
 Output written on "Adaptive Chebyshev Graph Neural Network for Cancer Gene Pred
-iction with Multi-Omics Integration.pdf" (15 pages, 1231348 bytes).
+iction with Multi-Omics Integration.pdf" (16 pages, 1233893 bytes).
 PDF statistics:
- 524 PDF objects out of 1000 (max. 8388607)
- 450 compressed objects within 5 object streams
- 135 named destinations out of 1000 (max. 500000)
+ 530 PDF objects out of 1000 (max. 8388607)
+ 455 compressed objects within 5 object streams
+ 136 named destinations out of 1000 (max. 500000)
  236 words of extra memory for PDF output out of 10000 (max. 10000000)
 
