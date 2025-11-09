@@ -2,7 +2,7 @@
 
 This repository contains the code for our project,  
 **"Adaptive Chebyshev Graph Neural Network for Cancer Gene Prediction with Multi-Omics Integration,"**  
-submitted to the Bioinformatics Advances  
+submitted to the Journal of Bioinformatics Advances.
 
 
 ![Alt text](images/__overview_framework.png)
