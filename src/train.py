@@ -16,7 +16,7 @@ from sklearn.metrics import roc_curve, auc, precision_recall_curve
 from matplotlib.lines import Line2D
 from scipy.stats import ttest_ind
 from torch_geometric.nn import GCNConv
-from .models import ACGNN, HGDC, EMOGI, MTGCN, GCN, GAT, GraphSAGE, GIN, Chebnet, FocalLoss
+from .models import ACGNN, HGDC, EMOGI, MTGCN, GCN, GAT, GraphSAGE, GIN, ChebNet, FocalLoss
 from src.utils import (choose_model, plot_roc_curve, plot_pr_curve, load_graph_data, 
                        load_oncokb_genes, plot_and_analyze, save_and_plot_results)
 
@@ -26,7 +26,8 @@ def train(args):
     epoch_times = []
     cpu_usages = []
     gpu_usages = []
-    data_path = os.path.join('data/multiomics_meth/', f'{args.net_type}_omics_ppi_embeddings_2048.json')
+    # data_path = os.path.join('../ACGNN_data/data/multiomics_meth/', f'{args.net_type}_omics_ppi_embeddings_graph_2048.json')
+    data_path = os.path.join('../ACGNN_data/data/multiomics_meth/', f'{args.net_type}_omics_ppi_embeddings_graph_2048_gene_pathway.json')
     nodes, edges, embeddings, labels = load_graph_data(data_path)
 
     graph = dgl.graph(edges)

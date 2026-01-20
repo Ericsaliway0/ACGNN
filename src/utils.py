@@ -22,7 +22,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import ttest_ind
 from torch_geometric.nn import GCNConv
-from .models import ACGNN, HGDC, EMOGI, MTGCN, GCN, GAT, GraphSAGE, GIN, Chebnet, FocalLoss
+from .models import ACGNN, HGDC, EMOGI, MTGCN, GCN, GAT, GraphSAGE, GIN, ChebNet, FocalLoss
 import pandas as pd
 import torch.nn as nn
 
