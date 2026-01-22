@@ -40,7 +40,8 @@ These databases provide curated and integrated protein-protein interaction (PPI)
    - `conda install -c dglteam dgl`
 
 6. Download the data from the built gene association graph using the link below and place it in the `data/multiomics_meth/` directory before training:
-   - [Download Gene Association Data](https://drive.google.com/file/d/1l7mbTn2Nxsbc7LLLJzsT8y02scD23aWo/view?usp=sharing)
+   - [Download PPI Network](https://drive.google.com/file/d/1sPcGTU7qCuP1EoDvc4xkMBGEOlSOfE4p/view?usp=sharing)
+   - [Download Gene Association Data](https://drive.google.com/file/d/1sPcGTU7qCuP1EoDvc4xkMBGEOlSOfE4p/view?usp=drive_link)
 
 7. To train the model, run the following command:
    - `python main.py --model_type ACGNN --net_type CPDB --score_threshold 0.99 --learning_rate 0.001 --num_epochs 200`
