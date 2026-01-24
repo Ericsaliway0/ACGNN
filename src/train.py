@@ -26,8 +26,8 @@ def train(args):
     epoch_times = []
     cpu_usages = []
     gpu_usages = []
-    # data_path = os.path.join('../ACGNN_data/data/multiomics_meth/', f'{args.net_type}_omics_ppi_embeddings_graph_2048.json')
-    data_path = os.path.join('../ACGNN_data/data/multiomics_meth/', f'{args.net_type}_omics_ppi_embeddings_graph_2048_gene_pathway.json')
+    data_path = os.path.join('../ACGNN_data/data/multiomics_meth/', f'{args.net_type}_omics_ppi_embeddings_graph_2048.json')
+    # data_path = os.path.join('../ACGNN_data/data/multiomics_meth/', f'{args.net_type}_omics_ppi_embeddings_graph_2048_gene_pathway.json')
     nodes, edges, embeddings, labels = load_graph_data(data_path)
 
     graph = dgl.graph(edges)
@@ -164,11 +164,11 @@ def train(args):
     # Save predictions (above and below threshold) to CSV
     output_file_above = os.path.join(
         'results/gene_prediction/',
-        f'{args.model_type}_{args.net_type}_predicted_driver_genes_above_epo{args.num_epochs}_2048.csv'
+        f'{args.model_type}_{args.net_type}_predicted_driver_genes_above_epo{args.num_epochs}.csv'
     )
     output_file_below = os.path.join(
         'results/gene_prediction/',
-        f'{args.model_type}_{args.net_type}_predicted_driver_genes_below_epo{args.num_epochs}_2048.csv'
+        f'{args.model_type}_{args.net_type}_predicted_driver_genes_below_epo{args.num_epochs}.csv'
     )
 
     with open(output_file_above, 'w', newline='') as csvfile:
@@ -206,7 +206,7 @@ def train(args):
     # Save degrees of predicted driver genes connecting to ground truth driver genes (above threshold)
     degree_output_file_above = os.path.join(
         'results/gene_prediction/',
-        f'{args.model_type}_{args.net_type}_predicted_driver_gene_degrees_above_epo{args.num_epochs}_2048.csv'
+        f'{args.model_type}_{args.net_type}_predicted_driver_gene_degrees_above_epo{args.num_epochs}.csv'
     )
     with open(degree_output_file_above, 'w', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
@@ -236,8 +236,8 @@ def train(args):
     sorted_degree_counts_above_value = [value for _, value in sorted_degree_counts_above if value <= 20]
     sorted_degree_counts_below_value = [value for _, value in sorted_degree_counts_below if value <= 20]
     
-    output_above_file = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_output_above_file_epo{args.num_epochs}_2048.csv')
-    output_below_file = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_output_below_file_epo{args.num_epochs}_2048.csv')
+    output_above_file = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_output_above_file_epo{args.num_epochs}.csv')
+    output_below_file = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_output_below_file_epo{args.num_epochs}.csv')
 
     calculate_and_save_prediction_stats(non_labeled_nodes, labels, node_names, scores, args)
 
@@ -273,7 +273,7 @@ def save_predictions_to_csv(predicted_genes, output_dir, model_type, net_type, n
     - model_type, net_type, num_epochs: For naming the output file.
     """
     os.makedirs(output_dir, exist_ok=True)
-    predicted_genes_csv_path = os.path.join(output_dir, f'{model_type}_{net_type}_predicted_driver_genes_epo{num_epochs}_2048.csv')
+    predicted_genes_csv_path = os.path.join(output_dir, f'{model_type}_{net_type}_predicted_driver_genes_epo{num_epochs}.csv')
     df_predictions = pd.DataFrame(predicted_genes, columns=["Gene", "Score", "Confirmed Sources"])
     df_predictions.to_csv(predicted_genes_csv_path, index=False)
     print(f"Predicted driver genes with confirmed sources saved to {predicted_genes_csv_path}")
@@ -287,7 +287,7 @@ def save_confirmed_predictions_to_csv(confirmed_predictions, output_dir, model_t
     - output_dir: Directory to save the CSV file.
     - model_type, net_type, num_epochs: For naming the output file.
     """
-    confirmed_predictions_csv_path = os.path.join(output_dir, f'{model_type}_{net_type}_confirmed_predicted_genes_epo{num_epochs}_2048.csv')
+    confirmed_predictions_csv_path = os.path.join(output_dir, f'{model_type}_{net_type}_confirmed_predicted_genes_epo{num_epochs}.csv')
     df_confirmed = pd.DataFrame(confirmed_predictions, columns=["Gene", "Score", "Source"])
     df_confirmed.to_csv(confirmed_predictions_csv_path, index=False)
     print(f"Confirmed predicted genes saved to {confirmed_predictions_csv_path}")
@@ -301,7 +301,7 @@ def save_predicted_known_drivers(predicted_driver_genes, output_dir, model_type,
     - output_dir: Directory to save the CSV file.
     - model_type, net_type, num_epochs: For naming the output file.
     """
-    predicted_drivers_csv_path = os.path.join(output_dir, f'{model_type}_{net_type}_predicted_known_drivers_epo{num_epochs}_2048.csv')
+    predicted_drivers_csv_path = os.path.join(output_dir, f'{model_type}_{net_type}_predicted_known_drivers_epo{num_epochs}.csv')
     df = pd.DataFrame(predicted_driver_genes, columns=["Gene"])
     df.to_csv(predicted_drivers_csv_path, index=False)
     print(f"Predicted known driver genes saved to {predicted_drivers_csv_path}")
@@ -379,7 +379,7 @@ def save_overall_metrics(total_time, average_time_per_epoch, average_cpu_usage, 
     }])
     
     # Define path to save the CSV
-    overall_metrics_csv_path = os.path.join(output_dir, f'{args.model_type}_{args.net_type}_overall_performance_epo{args.num_epochs}_2048.csv')
+    overall_metrics_csv_path = os.path.join(output_dir, f'{args.model_type}_{args.net_type}_overall_performance_epo{args.num_epochs}.csv')
     
     # Save to CSV
     df_overall_metrics.to_csv(overall_metrics_csv_path, index=False)
@@ -465,7 +465,7 @@ def plot_degree_distributions(sorted_degree_counts_above, sorted_degree_counts_b
 
     # Save the plot
     os.makedirs(output_dir, exist_ok=True)
-    output_plot_path = os.path.join(output_dir, f'{args.model_type}_{args.net_type}_degree_distributions_epo{args.num_epochs}_2048.png')
+    output_plot_path = os.path.join(output_dir, f'{args.model_type}_{args.net_type}_degree_distributions_epo{args.num_epochs}.png')
     plt.savefig(output_plot_path, bbox_inches='tight')
 
     plt.tight_layout()
@@ -520,6 +520,8 @@ def generate_kde_and_curves(logits, node_names, degree_counts_above, degree_coun
     correlation, p_value = scipy.stats.spearmanr(
         plot_data["Prob_pos_ranked"], plot_data["Degree_ranked"]
     )
+    
+    # print('correlation = ', correlation)
 
     # Labels and formatting
     plt.xticks(fontsize=8)
@@ -535,7 +537,7 @@ def generate_kde_and_curves(logits, node_names, degree_counts_above, degree_coun
         verticalalignment='top', bbox=dict(facecolor='white', alpha=0.8, edgecolor='none')
     )
 
-    kde_output_path = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_kde_plot_epo{args.num_epochs}_2048.png')
+    kde_output_path = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_kde_plot_epo{args.num_epochs}.png')
     plt.savefig(kde_output_path, bbox_inches='tight')
     print(f"KDE plot saved to {kde_output_path}")
 
@@ -551,14 +553,16 @@ def generate_kde_and_curves(logits, node_names, degree_counts_above, degree_coun
     labeled_labels_np = labeled_labels.cpu().detach().numpy() if isinstance(labeled_labels, torch.Tensor) else labeled_labels
 
     # Save ROC and PR curves
-    output_file_roc = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_epo{args.num_epochs}_2048_roc_curves.png')
-    output_file_pr = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_epo{args.num_epochs}_2048_pr_curves.png')
+    output_file_roc = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_epo{args.num_epochs}_roc_curves.png')
+    output_file_pr = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_epo{args.num_epochs}_pr_curves.png')
 
     plot_roc_curve(labeled_labels_np, labeled_scores_np, output_file_roc)
     plot_pr_curve(labeled_labels_np, labeled_scores_np, output_file_pr)
 
     print(f"ROC curve saved to {output_file_roc}")
     print(f"PR curve saved to {output_file_pr}")
+    
+    return correlation
 
 def plot_model_performance(args):
     """
@@ -643,7 +647,7 @@ def plot_model_performance(args):
     plt.xlabel("AUROC", fontsize=14)
 
     # Save the plot
-    comp_output_path = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_comp_plot_epo{args.num_epochs}_2048.png')
+    comp_output_path = os.path.join('results/gene_prediction/', f'{args.model_type}_{args.net_type}_comp_plot_epo{args.num_epochs}.png')
     plt.savefig(comp_output_path, bbox_inches='tight')
     
     print(f"Comparison plot saved to {comp_output_path}")
@@ -886,7 +890,7 @@ def save_performance_metrics(epoch_times, cpu_usages, gpu_usages, args):
     # Define CSV path
     metrics_csv_path = os.path.join(
         'results/gene_prediction/',
-        f'{args.model_type}_{args.net_type}_performance_metrics_epo{args.num_epochs}_2048.csv'
+        f'{args.model_type}_{args.net_type}_performance_metrics_epo{args.num_epochs}.csv'
     )
 
     # Save to CSV

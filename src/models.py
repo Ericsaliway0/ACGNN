@@ -137,8 +137,15 @@ class ACGNN_ori(nn.Module):
         
         return self.mlp(x)
 
-class ACGNN(nn.Module):
+class ACGNN_orri(nn.Module):
     def __init__(self, in_feats, hidden_feats, out_feats, k=3, dropout=0.3, epsilon=1e-4):
+        super(ACGNN, self).__init__()
+
+        # 🔹 SAVE ARCHITECTURE METADATA
+        self.in_feats = in_feats
+        self.hidden_feats = hidden_feats
+        self.out_feats = out_feats
+
         """
         Efficient Graph Convolutional Network (EGCN) with:
         - Chebyshev Polynomial Approximation (Adaptive)
@@ -189,12 +196,80 @@ class ACGNN(nn.Module):
             if torch.norm(x_new - prev_x) < self.epsilon:
                 break
             prev_x = x_new.clone()
+            x = x_new 
 
         x_res = x
         x = F.relu(self.cheb3(graph, x, lambda_max=lambda_max))
         x = self.dropout_layer(x) + x_res
 
         return self.mlp(x)
+
+class ACGNN(nn.Module):
+    def __init__(
+        self,
+        in_feats,
+        hidden_feats,
+        out_feats,
+        k=3,
+        dropout=0.3,
+        epsilon=1e-4
+    ):
+        super().__init__()
+
+        # 🔹 SAVE ARCHITECTURE METADATA (for logging / CSV)
+        self.in_feats = in_feats
+        self.hidden_feats = hidden_feats
+        self.out_feats = out_feats
+        self.k = k
+        self.dropout = dropout
+        self.epsilon = epsilon
+
+        # Chebyshev Convolution Layers
+        self.cheb1 = ChebConv(in_feats, hidden_feats, k)
+        self.cheb2 = ChebConv(hidden_feats, hidden_feats, k)
+        self.cheb3 = ChebConv(hidden_feats, hidden_feats, k)
+
+        # Fully Connected Layer (MLP)
+        self.mlp = nn.Sequential(
+            nn.Linear(hidden_feats, hidden_feats),
+            nn.ReLU(),
+            nn.Linear(hidden_feats, out_feats)
+        )
+
+        # Batch Normalization
+        self.norm = nn.BatchNorm1d(hidden_feats)
+
+        # Dropout
+        self.dropout_layer = nn.Dropout(dropout)
+
+    def forward(self, graph, features, lambda_max=None):
+        if lambda_max is None:
+            lambda_max = dgl.laplacian_lambda_max(graph)
+
+        x = F.relu(self.cheb1(graph, features, lambda_max=lambda_max))
+        x = self.norm(x)
+
+        prev_x = x.clone()
+        for _ in range(1, self.k):
+            x_new = F.relu(self.cheb2(graph, x, lambda_max=lambda_max))
+            if torch.norm(x_new - prev_x) < self.epsilon:
+                break
+            prev_x = x_new.clone()
+            x = x_new
+
+        x_res = x
+        x = F.relu(self.cheb3(graph, x, lambda_max=lambda_max))
+        x = self.dropout_layer(x) + x_res
+
+        return self.mlp(x)
+
+    def get_config(self):
+        return {
+            "in_feats": self.in_feats,
+            "hidden_feats": self.hidden_feats,
+            "out_feats": self.out_feats,
+            # "num_layers": self.num_layers,
+        }
 
 class ACGNN_ig(nn.Module):
     def __init__(self, in_feats, hidden_feats, out_feats, k=3, dropout=0.3, epsilon=1e-4):

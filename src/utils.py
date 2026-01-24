@@ -126,7 +126,7 @@ def plot_roc_curve(labels, scores, filename):
 
     plt.figure(figsize=(8, 6))
     plt.plot(fpr, tpr, label=f"ROC Curve (AUC = {roc_auc:.4f})", color="blue")
-    plt.plot([0, 1], [0, 1], color="salmon", linestyle="--")
+    # plt.plot([0, 1], [0, 1], color="salmon", linestyle="--")
     plt.title("Receiver Operating Characteristic Curve")
     plt.xlabel("False Positive Rate")
     plt.ylabel("True Positive Rate")
@@ -136,13 +136,13 @@ def plot_roc_curve(labels, scores, filename):
     plt.show()
     print(f"ROC Curve saved to {filename}")
 
-def plot_pr_curve(labels, scores, filename):
+def plot_pr_curve_(labels, scores, filename):
     precision, recall, _ = precision_recall_curve(labels, scores)
     pr_auc = auc(recall, precision)
 
     plt.figure(figsize=(8, 6))
-    plt.plot(recall, precision, label=f"PR Curve (AUC = {pr_auc:.4f})", color="green")
-    ##plt.plot([0, 1], [1, 0], color="salmon", linestyle="--")
+    plt.plot(recall, precision, label=f"PR Curve (AUC = {pr_auc:.4f})", color="blue")
+    # plt.plot([0, 1], [1, 0], color="salmon", linestyle="--")
     plt.title("Precision-Recall Curve")
     plt.xlabel("Recall")
     plt.ylabel("Precision")
@@ -150,6 +150,52 @@ def plot_pr_curve(labels, scores, filename):
     ##plt.grid(alpha=0.4)
     plt.savefig(filename)
     plt.show()
+    print(f"Precision-Recall Curve saved to {filename}")
+
+from sklearn.metrics import precision_recall_curve, auc
+import numpy as np
+import matplotlib.pyplot as plt
+
+def plot_pr_curve_(labels, scores, filename):
+    precision, recall, _ = precision_recall_curve(labels, scores)
+
+    # --------------------------------------------------
+    # Force PR curve to end at (recall=1, precision=0)
+    # --------------------------------------------------
+    if recall[-1] != 1.0:
+        recall = np.append(recall, 1.0)
+        precision = np.append(precision, 0.0)
+
+    pr_auc = auc(recall, precision)
+
+    plt.figure(figsize=(8, 6))
+    plt.plot(
+        recall,
+        precision,
+        label=f"PR Curve (AUC = {pr_auc:.4f})",
+        linewidth=2
+    )
+
+    # Optional: baseline (random classifier)
+    baseline = np.mean(labels)
+    plt.hlines(
+        baseline, 0, 1,
+        linestyles="--",
+        colors="salmon",
+        label=f"Random (Pos rate = {baseline:.3f})"
+    )
+
+    plt.xlabel("Recall")
+    plt.ylabel("Precision")
+    plt.title("Precision–Recall Curve")
+    plt.legend(loc="lower left")
+    plt.xlim(0, 1)
+    plt.ylim(0, 1)
+
+    plt.tight_layout()
+    plt.savefig(filename, dpi=300)
+    plt.show()
+
     print(f"Precision-Recall Curve saved to {filename}")
 
 def load_graph_data(file_path):
