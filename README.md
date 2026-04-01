@@ -46,3 +46,20 @@ These databases provide curated and integrated protein-protein interaction (PPI)
 7. To train the model, run the following command:
    - `python main.py --model_type ACGNN --net_type CPDB --score_threshold 0.99 --learning_rate 0.001 --num_epochs 200`
 
+<h2>Citation</h2>
+
+<p>
+If you find this project useful for your research, please cite it using the following BibTeX entry:
+</p>
+
+<pre><code>
+@misc{LiMaSSRN2026Chebyshev,
+  author       = {Li, Sa and Ma, Tianle},
+  title        = {Learning Interpretable Gene Representations with Adaptive Chebyshev Graph Neural Networks},
+  year         = {2026},
+  publisher    = {SSRN},
+  doi          = {10.2139/ssrn.6382922},
+  url          = {https://ssrn.com/abstract=6382922},
+  note         = {Available at SSRN}
+}
+</code></pre>
